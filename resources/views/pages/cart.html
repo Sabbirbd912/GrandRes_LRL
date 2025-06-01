@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Add to Cart Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      padding: 15px 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .cart {
+      background: #e0f7e9;
+      color: #2d7a46;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .cart-details {
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 10px;
+      width: 250px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      display: none;
+      z-index: 10;
+    }
+
+    .cart-details ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .cart-details li {
+      padding: 6px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .product {
+      margin-top: 30px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 300px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .add-to-cart-btn {
+      background-color: #28a745;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .add-to-cart-btn:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h2>Shopping Cart</h2>
+  <div class="cart" id="cart-toggle">
+    🛒 <span id="cart-count">0</span> items
+  </div>
+
+  <!-- Cart details (hidden by default) -->
+  <div class="cart-details" id="cart-details">
+    <strong>Cart Items:</strong>
+    <ul id="cart-items-list">
+      <li>No items yet.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Products -->
+<div class="product">
+  <h3>Product A</h3>
+  <p>$20.00</p>
+  <button class="add-to-cart-btn" data-product-name="Product A" data-price="20">Add to Cart</button>
+</div>
+
+<div class="product">
+  <h3>Product B</h3>
+  <p>$15.00</p>
+  <button class="add-to-cart-btn" data-product-name="Product B" data-price="15">Add to Cart</button>
+</div>
+
+<div class="product">
+  <h3>Product C</h3>
+  <p>$30.00</p>
+  <button class="add-to-cart-btn" data-product-name="Product C" data-price="30">Add to Cart</button>
+</div>
+
+<script>
+  let cartCount = 0;
+  const cartItems = [];
+
+  const cartCountElement = document.getElementById('cart-count');
+  const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+  const cartToggle = document.getElementById('cart-toggle');
+  const cartDetails = document.getElementById('cart-details');
+  const cartItemsList = document.getElementById('cart-items-list');
+
+  // Add to cart functionality
+  addToCartButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const productName = button.getAttribute('data-product-name');
+      const price = button.getAttribute('data-price');
+
+      cartItems.push({ name: productName, price: price });
+      cartCount++;
+      cartCountElement.textContent = cartCount;
+
+      renderCartItems();
+    });
+  });
+
+  // Show/hide cart details on cart click
+  cartToggle.addEventListener('click', () => {
+    cartDetails.style.display = cartDetails.style.display === 'none' ? 'block' : 'none';
+  });
+
+  // Render cart items
+  function renderCartItems() {
+    cartItemsList.innerHTML = ''; // Clear list first
+
+    if (cartItems.length === 0) {
+      cartItemsList.innerHTML = '<li>No items yet.</li>';
+    } else {
+      cartItems.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.name} - $${item.price}`;
+        cartItemsList.appendChild(li);
+      });
+    }
+  }
+</script>
+
+</body>
+</html>

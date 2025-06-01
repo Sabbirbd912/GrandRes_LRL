@@ -1,0 +1,129 @@
+<ul class="metismenu" id="menu">
+    <!-- Dashboard -->
+    <li>
+        <a class="has-arrow ai-icon" href="dashboard" aria-expanded="false">
+            <i class="flaticon-381-networking"></i>
+            <span class="nav-text">Dashboard</span>
+        </a>
+        <ul aria-expanded="false" id="dashboard">
+            <li><a href="{{ url('/') }}"><i class="far fa-circle me-2 text-primary"></i>Status-Board</a></li>
+            <li><a href="{{ url('reviews') }}"><i class="far fa-circle me-2 text-primary"></i>Review</a></li>
+        </ul>
+    </li>
+
+    <!-- Menu Items -->
+    <li>
+        <a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
+            <i class="flaticon-381-television"></i>
+            <span class="nav-text">Menu Items</span>
+        </a>
+        <ul aria-expanded="false">
+            <li><a href="{{url('products/create')}}"><i class="far fa-circle me-2 text-primary"></i>Add Menu</a></li>
+            <li><a href="{{ url('products') }}"><i class="far fa-circle me-2 text-primary"></i>Manage Menu</a></li>
+        </ul>
+    </li>
+
+    <!-- Orders Management -->
+    <li>
+        <a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
+            <i class="flaticon-381-controls-3"></i>
+            <span class="nav-text">Orders Management</span>
+        </a>
+        <ul aria-expanded="false">
+            <li><a href="{{ url('sales/invoices') }}"><i class="far fa-circle me-2 text-primary"></i>Create Order</a></li>
+            <li><a href="{{ url('orders') }}"><i class="far fa-circle me-2 text-primary"></i>Manage Order</a></li>
+        </ul>
+    </li>
+
+    <!-- Reservations -->
+    <li>
+        <a class="has-arrow ai-icon" href="Reservations" aria-expanded="false">
+            <i class="flaticon-381-internet"></i>
+            <span class="nav-text">Reservations</span>
+        </a>
+        <ul aria-expanded="false" id="reservations">
+            <li><a href="{{ url('ui/accordion') }}"><i class="far fa-circle me-2 text-primary"></i>All Reserved</a></li>
+            <li><a href="{{ url('reservations') }}"><i class="far fa-circle me-2 text-primary"></i>Manage Reserveation</a></li>
+            <li><a href="{{ url('ui/button') }}"><i class="far fa-circle me-2 text-primary"></i>Cancel Reserveation</a></li>
+        </ul>
+    </li>
+
+    <!-- Table -->
+    <li>
+        <a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
+            <i class="flaticon-381-network"></i>
+            <span class="nav-text">Tables</span>
+        </a>
+        <ul aria-expanded="false">
+            <li><a href="{{url('tables/create')}}"><i class="far fa-circle me-2 text-primary"></i>Create Table</a></li>
+            <li><a href="{{ url('tables') }}"><i class="far fa-circle me-2 text-primary"></i>Manage Table</a></li>
+        </ul>
+    </li>
+
+    <!-- Payments -->
+    <li>
+        <a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
+            <i class="fas fa-money-bill-wave"></i>
+            <span class="nav-text">Payments</span>
+        </a>
+        <ul aria-expanded="false">
+            <li><a href="{{ url('uc/select2') }}"><i class="far fa-circle me-2 text-primary"></i>Create Payment</a></li>
+            <li><a href="{{ url('uc/nestable') }}"><i class="far fa-circle me-2 text-primary"></i>Payments Method</a></li>
+            <li><a href="{{ url('uc/noui-slider') }}"><i class="far fa-circle me-2 text-primary"></i>All Payments</a></li>
+        </ul>
+    </li>
+
+    <!-- Customers -->
+    <li>
+        <a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
+            <i class="fas fa-users"></i>
+            <span class="nav-text">Customers</span>
+        </a>
+        <ul aria-expanded="false">
+            <li><a href="{{ url('customers/create') }}"><i class="far fa-circle me-2 text-primary"></i>Create Customer</a></li>
+            <li><a href="{{ url('customers') }}"><i class="far fa-circle me-2 text-primary"></i>Manage Customers</a></li>
+        </ul>
+    </li>
+
+    <!-- Kitchen -->
+    <li>
+        <a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
+            <i class="fas fa-concierge-bell"></i>
+            <span class="nav-text">Kitchen</span>
+        </a>
+        <ul aria-expanded="false">
+            <li><a href="{{ url('kitchen/preparation') }}"><i class="far fa-circle me-2 text-primary"></i>Food Preparation</a></li>
+            <li><a href="{{ url('kitchen/ingredients') }}"><i class="far fa-circle me-2 text-primary"></i>Ingredients Usage</a></li>
+            <li><a href="{{ url('kitchen/stock') }}"><i class="far fa-circle me-2 text-primary"></i>Kitchen Stock</a></li>
+        </ul>
+    </li>
+
+    <!-- Purchases -->
+    <li>
+        <a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
+            <i class="flaticon-381-box"></i>
+            <span class="nav-text">Purchases</span>
+        </a>
+        <ul aria-expanded="false">
+            <li><a href="{{ url('purchases/create') }}"><i class="far fa-circle me-2 text-primary"></i>Add Purchase</a></li>
+            <li><a href="{{ url('purchases') }}"><i class="far fa-circle me-2 text-primary"></i>Manage Purchases</a></li>
+            <li><a href="{{ url('purchases/history') }}"><i class="far fa-circle me-2 text-primary"></i>Purchase History</a></li>
+            <li><a href="{{ url('suppliers') }}"><i class="far fa-circle me-2 text-primary"></i>Supplier List</a></li>
+        </ul>
+    </li>
+
+    <!-- Inventory -->
+    <li>
+        <a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
+            <i class="flaticon-381-layer-1"></i>
+            <span class="nav-text">Inventory</span>
+        </a>
+        <ul aria-expanded="false">
+            <li><a href="{{ url('inventory/current') }}"><i class="far fa-circle me-2 text-primary"></i>Current Stock</a></li>
+            <li><a href="{{ url('inventory/in') }}"><i class="far fa-circle me-2 text-primary"></i>Stock In</a></li>
+            <li><a href="{{ url('inventory/out') }}"><i class="far fa-circle me-2 text-primary"></i>Stock Out</a></li>
+            <li><a href="{{ url('inventory/adjustment') }}"><i class="far fa-circle me-2 text-primary"></i>Stock Adjustment</a></li>
+            <li><a href="{{ url('inventory/report') }}"><i class="far fa-circle me-2 text-primary"></i>Inventory Report</a></li>
+        </ul>
+    </li>
+</ul>
