@@ -39,7 +39,7 @@ class PurchaseController extends Controller
         $items=$request->items;
 
         foreach($items as $item){
-            $details=new PurchaseDetails();
+            $details=new PurchaseDetail();
             $details->purchase_id=$purchase->id;
             $details->product_id=$item["product_id"];
             $details->qty=$item["qty"];
@@ -57,7 +57,12 @@ class PurchaseController extends Controller
             //$stock->timestamps = false;
             $stock->save();
         }
-        return response()->json(['success'=>'Saved']);
+        $data=[   
+            "id"=>$purchase->id,          
+            "msg"=>"Success"
+        ];
+
+         return response()->json($data);
     }
 
     /**
