@@ -32,7 +32,7 @@
                     <span class="nav-text">Orders Management</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ url('sales/invoices') }}">Create Order</a></li>
+                    <li><a href="{{ url('orders/create') }}">Create Order</a></li>
                     <li><a href="{{ url('orders') }}">Manage Order</a></li>
                 </ul>
             </li>
