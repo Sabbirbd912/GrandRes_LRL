@@ -62,7 +62,9 @@
                     </tr>
                     <tr>
                         <th class="text-end">Table No:</th>
-                        <td><input type="number" name="table" id="table"></td>
+                         <td id="table">
+                            {{ $table_id ?? '' }}
+                        </td>
                     </tr>
                     <tr>
                         <th class="text-end">Order Date:</th>
@@ -204,7 +206,7 @@
         let date=document.querySelector("#date").innerHTML;
         let customer_id=document.querySelector("#customer_id").value;
         let total=document.querySelector("#netTotal").innerHTML;
-        let table_id=document.querySelector("#table").value;
+        let table_id=document.querySelector("#table").innerHTML;
         
         
         let jsonData={

@@ -7,6 +7,10 @@ use App\Libraries\Core\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
+use App\Models\Customer;
+use App\Models\Product;
+use App\Models\Company;
+
 
 class OrderController extends Controller
 {
@@ -25,7 +29,20 @@ class OrderController extends Controller
      */
     public function create()
     {
-        return view('pages.order.create');
+        // return view('pages.order.create');
+        $table_id = request('table_id'); // from query string
+        $Order_last = Order::max('id');
+        $customers = Customer::all();
+        $products = Product::all();
+        $company = Company::find(1);
+
+        return view("pages.order.create", compact(
+            'table_id',
+            'Order_last',
+            'customers',
+            'products',
+            'company'
+        ));
     }
 
     /**
