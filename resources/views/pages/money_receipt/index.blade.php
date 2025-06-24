@@ -30,6 +30,7 @@
                             <a class="btn btn-primary" href='{{url("money_receipts/$money_receipt->id/edit")}}'>Edit</a>
                             <a class="btn btn-success" href='{{url("money_receipts/$money_receipt->id")}}'>View</a>
                             <a class="btn btn-warning" href='{{url("money_receipts/$money_receipt->id/delete")}}'>Delete</a>
+
                         </div>
                     </td>
                 </tr>

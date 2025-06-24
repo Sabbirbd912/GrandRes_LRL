@@ -23,7 +23,7 @@
                 <img src='{{ asset("/img/{$company->logo}") }}' alt="Logo" width='100' class="img-fluid rounded" />
             </div>
             <div class="col-md-6 text-end">
-                <h2 class="mb-1">🧾 Create Order</h2>
+                <h2 class="mb-1">🧾 Create Money Receipt</h2>
                 <h5 class="fw-bold mx-2">{{ $company->name }}</h5>
                 <p class="mb-0 text-muted">
                     {{ $company->street_address }}<br>
@@ -56,12 +56,8 @@
             <div class="col-md-6 text-end">
                 <table class="table table-borderless table-sm mb-0">
                     <tr>
-                        <th class="text-end">Order No:</th>
-                        <td>{{$Order_last+1}}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-end">Table No:</th>
-                        <td><input type="number" name="table" id="table"></td>
+                        <th class="text-end">Receit No:</th>
+                        <td>{{$Receipt_last+1}}</td>
                     </tr>
                     <tr>
                         <th class="text-end">Order Date:</th>
@@ -202,7 +198,6 @@
         let customer_id=document.querySelector("#customer_id").value;
         let total=document.querySelector("#netTotal").innerHTML;
 
-        let table_id=document.querySelector("#table").value;
         
         
         let jsonData={
@@ -210,13 +205,11 @@
             updated_at:date,
             customer_id:customer_id,
             remark:"Na",
-            shipping_address:"Na",
-            order_total:total,
+            receipt_total:total,
             paid_amount:total,
             payment_term:"CASH",
             previous_due:0,
             status_id:1,
-            table_id:table_id,
             discount:0,
             vat:0,
             items:cart
@@ -224,7 +217,7 @@
 
         console.log(jsonData);
 
-        let response=await fetch(`${base_url}/orders`,{
+        let response=await fetch(`${base_url}/money_receipts`,{
         method:"POST",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify(jsonData)

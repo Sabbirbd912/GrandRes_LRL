@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 use App\Models\Customer;
 use App\Models\Product;
-use App\Models\Order;
+use App\Models\MoneyReceipt;
 use App\Models\Company;
 
 class MoneyReceiptController extends Controller
@@ -28,12 +28,12 @@ class MoneyReceiptController extends Controller
     public function create()
     {
         
-        $Order_last = Order::max('id');
+        $Receipt_last = MoneyReceipt::max('id');
         $customers = Customer::all();
         $products = Product::all();
         $company = Company::find(1);
-        return view("money_receipt.create", compact(
-            'Order_last',
+        return view("pages.money_receipt.create", compact(
+            'Receipt_last',
             'customers',
             'products',
             'company'
@@ -51,9 +51,10 @@ class MoneyReceiptController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $moneyreceipt=MoneyReceipt::find($id);
+        return view("pages.money_receipt.show", ["money_receipt"=>$moneyreceipt]);
     }
 
     /**
