@@ -9,6 +9,7 @@ use Illuminate\Pagination\Paginator;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\MoneyReceipt;
+use App\Models\MoneyReceiptDetail;
 use App\Models\Company;
 
 class MoneyReceiptController extends Controller
@@ -18,8 +19,11 @@ class MoneyReceiptController extends Controller
      */
     public function index()
     {
-        $moneyreceipt=DB::table("money_receipts")->get();
-        return view("pages.money_receipt.index",["money_receipts"=>$moneyreceipt]);
+        // $moneyreceipt=DB::table("money_receipts")->get();
+        // return view("pages.money_receipt.index",["money_receipts"=>$moneyreceipt]);
+        $money_receipts = MoneyReceipt::with('customer')->get();
+        return view('pages.money_receipt.index', compact('money_receipts'));
+
     }
 
     /**
@@ -53,9 +57,35 @@ class MoneyReceiptController extends Controller
      */
     public function show($id)
     {
-        $moneyreceipt=MoneyReceipt::find($id);
-        return view("pages.money_receipt.show", ["money_receipt"=>$moneyreceipt]);
+        $money_receipt = MoneyReceipt::with('customer')->findOrFail($id);
+        $details = MoneyReceiptDetail::where('money_receipt_id', $id)->get();
+        $company = Company::find(1);
+
+        return view('pages.money_receipt.show', compact('money_receipt', 'details', 'company'));
     }
+
+
+    // public function show($id){
+    //     $moneyreceipt = MoneyReceipt::with('customer')->find($id);
+    //     $company = Company::find(1);
+    //     return view("pages.money_receipt.show", compact('moneyreceipt', 'company'));
+
+    // }
+    
+    // {
+    //     $moneyreceipt = MoneyReceipt::find($id);
+
+    //     if (!$moneyreceipt) {
+    //         return redirect()->route('money_receipt.index')->with('error', 'Money Receipt not found.');
+    //     }
+
+    //     return view("pages.money_receipt.show", ["money_receipt" => $moneyreceipt]);
+    // }
+    // public function show($id)
+    // {
+    //     $moneyreceipt=MoneyReceipt::find($id);
+    //     return view("pages.money_receipt.show", ["money_receipt"=>$moneyreceipt]);
+    // }
 
     /**
      * Show the form for editing the specified resource.

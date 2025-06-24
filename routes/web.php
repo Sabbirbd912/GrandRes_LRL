@@ -70,7 +70,7 @@ Route::get('/sales/invoices', [SalesInvoiceController::class, 'index']);
 // -------------------------
 // MoneyReceipt Routes
 // -------------------------
-Route::resource('money-receipts', MoneyReceiptController::class);
+Route::resource('money_receipts', MoneyReceiptController::class);
 // Route::get('/moneyreceipts/{id}/delete', [MoneyReceiptController::class, 'delete']);
 
 

@@ -115,7 +115,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <input type="button" class="btn btn-primary w-100 mt-2" onclick="CreateInvoice()" value="🧾 Create Invoice" />
+                            <input type="button" class="btn btn-primary w-100 mt-2" onclick="CreateMoneyReceipt()" value="🧾 Create Money Receipt" />
                         </td>
                     </tr>
                 </table>
@@ -194,13 +194,13 @@
         printCart();
     }
 
-    async function CreateInvoice() {
+    async function CreateMoneyReceipt() {
         if (!cart.length) {
             alert("Please add at least one item.");
             return;
         }
 
-        if (confirm("Are you sure to create this invoice?")) {
+        if (confirm("Are you sure to create this Money Receipt?")) {
             let date = document.querySelector("#date").innerHTML;
             let customer_id = document.querySelector("#customer_id").value;
             let total = parseFloat(document.querySelector("#netTotal").innerHTML);

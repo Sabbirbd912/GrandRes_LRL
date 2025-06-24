@@ -60,7 +60,7 @@
                         <td>{{$Receipt_last+1}}</td>
                     </tr>
                     <tr>
-                        <th class="text-end">Order Date:</th>
+                        <th class="text-end">Receive Date:</th>
                         <td id="date">{{ date('Y-m-d') }}</td>
                     </tr>
                 </table>
@@ -120,7 +120,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <input type="button" class="btn btn-primary w-100 mt-2" onclick="CreateInvoice()" value="🧾 Create Invoice" />
+                            <input type="button" class="btn btn-primary w-100 mt-2" onclick="CreateMoneyReceipt()" value="🧾 Create Money Receipt" />
                         </td>
                     </tr>
                 </table>
@@ -143,17 +143,23 @@
    let cart=[];
 
 
-   document.querySelector("#btnAdd").addEventListener("click",(e)=>{
-       
-       // let desc=document.querySelector("#description").value;
-        let unit=document.querySelector("#unit").value;
-        let price=document.querySelector("#price").value;
+   document.querySelector("#btnAdd").addEventListener("click",()=>{
+        let unit=document.querySelector("#unit").value||1;
+        let price=document.querySelector("#price").value||0;
         let product_id=document.querySelector("#product_id").value;
         let product_name= document.querySelector("#product_id").options[document.querySelector("#product_id").selectedIndex].text;
         let vat=0;
         let discount=0;
-        let lineTotal=unit*price-discount+vat;
-        let json={id:cart.length+1,desc:product_name,product_id:product_id,qty:unit,price:price,discount:discount,vat:vat,lineTotal:lineTotal};
+        let lineTotal= (unit * price) -discount + vat;
+        let json={
+            id:cart.length+1,
+            desc:product_name,
+            product_id:product_id,
+            qty:unit,price:price,
+            discount:discount,
+            vat:vat,
+            lineTotal:lineTotal
+        };
 
         cart.push(json);        
         console.log(cart);
@@ -174,10 +180,13 @@
             html+="</tr>";
             total+=item.lineTotal;
         });
-
-      document.querySelector("#tbody").innerHTML=html;
-      document.querySelector("#subTotal").innerHTML=total;
-      document.querySelector("#netTotal").innerHTML=total;
+        let tax = total * 0.02;
+        let netTotal = total + tax;
+        document.querySelector("#tbody").innerHTML=html;
+        document.querySelector("#subTotal").innerHTML=total;
+        document.querySelector("#tax").innerHTML = tax;
+        document.querySelector("#netTotal").innerHTML = netTotal;
+        document.querySelector("#due").innerHTML = netTotal;
 
     }
 
@@ -190,16 +199,17 @@
        printCart();
     }
 
-    async function CreateInvoice(){        
+    async function CreateMoneyReceipt() {
+        if (!cart.length) {
+            alert("Please add at least one item.");
+            return;
+        }
 
-      if(confirm("Are you sure?")){
+        if (confirm("Are you sure to create this Money Receipt?")) {
+            let date = document.querySelector("#date").innerHTML;
+            let customer_id = document.querySelector("#customer_id").value;
+            let total = parseFloat(document.querySelector("#netTotal").innerHTML);
 
-        let date = document.querySelector("#date").innerHTML;
-        let customer_id=document.querySelector("#customer_id").value;
-        let total=document.querySelector("#netTotal").innerHTML;
-
-        
-        
         let jsonData={
             created_at:date,
             updated_at:date,
@@ -229,7 +239,7 @@
       cart=[];
       printCart();
 
-      }
+    }
 
 }
 
