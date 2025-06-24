@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Restaurant Receipt</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      width: 80mm;
+      margin: 0 auto;
+      padding: 10px;
+      background: #fff;
+      color: #000;
+    }
+
+    .header {
+      text-align: center;
+      border-bottom: 1px dashed #000;
+      margin-bottom: 10px;
+    }
+
+    .header h2 {
+      margin: 0;
+    }
+
+    .info {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 4px 0;
+    }
+
+    .totals {
+      border-top: 1px solid #000;
+      margin-top: 10px;
+      padding-top: 10px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 12px;
+    }
+
+    .footer p {
+      margin: 4px 0;
+    }
+
+    .right {
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h2>Delicious Restaurant</h2>
+    <p>123 Food Street, Dhaka<br>Phone: 01234-567890</p>
+  </div>
+
+  <div class="info">
+    <p><strong>Receipt No:</strong> #00123</p>
+    <p><strong>Date:</strong> 2025-06-23</p>
+    <p><strong>Customer:</strong> Walk-in</p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th class="right">Qty</th>
+        <th class="right">Price</th>
+        <th class="right">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Chicken Biryani</td>
+        <td class="right">2</td>
+        <td class="right">150</td>
+        <td class="right">300</td>
+      </tr>
+      <tr>
+        <td>Soft Drink</td>
+        <td class="right">2</td>
+        <td class="right">30</td>
+        <td class="right">60</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="totals">
+    <table>
+      <tr>
+        <td><strong>Subtotal</strong></td>
+        <td class="right">360</td>
+      </tr>
+      <tr>
+        <td><strong>VAT (5%)</strong></td>
+        <td class="right">18</td>
+      </tr>
+      <tr>
+        <td><strong>Discount</strong></td>
+        <td class="right">0</td>
+      </tr>
+      <tr>
+        <td><strong>Total</strong></td>
+        <td class="right"><strong>378</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Paid</strong></td>
+        <td class="right">500</td>
+      </tr>
+      <tr>
+        <td><strong>Change</strong></td>
+        <td class="right">122</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="footer">
+    <p>Thank you for dining with us!</p>
+    <p>Visit Again</p>
+  </div>
+
+</body>
+</html>

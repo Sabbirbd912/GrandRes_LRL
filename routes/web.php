@@ -10,6 +10,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\MoneyReceiptController;
 
 // Default Home Route
 Route::get('/', function () {
@@ -65,6 +66,12 @@ Route::get('/suppliers/{id}/delete', [SupplierController::class, 'delete']);
 // Sales Invoice Routes
 // -------------------------
 Route::get('/sales/invoices', [SalesInvoiceController::class, 'index']);
+
+// -------------------------
+// MoneyReceipt Routes
+// -------------------------
+Route::resource('money-receipts', MoneyReceiptController::class);
+// Route::get('/moneyreceipts/{id}/delete', [MoneyReceiptController::class, 'delete']);
 
 // -------------------------
 // Database Connection Check (Optional)

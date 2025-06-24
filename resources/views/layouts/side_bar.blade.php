@@ -68,9 +68,9 @@
                     <span class="nav-text">Payments</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ url('uc/select2') }}">Create Paymenment</a></li>
+                    <li><a href="{{ url('uc/select2') }}">Create MoneyRe</a></li>
                     <li><a href="{{ url('uc/nestable') }}">Payments Method</a></li>
-                    <li><a href="{{ url('uc/noui-slider') }}">All Payments</a></li>
+                    <li><a href="{{ url('money-receipts') }}">All Money Receipt</a></li>
                 </ul>
             </li>
 
