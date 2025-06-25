@@ -44,14 +44,14 @@
                         <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                     @endforeach
                 </select>
-                <p class="mb-0 text-muted">
+                <p id="location" class="mb-0 text-muted">
                     91/4 Us Street West<br>
                     Sydney ON, M6P 3K9<br>
                     Canada
                 </p>
                 <p class="mb-0">
                     <a id="email" href="mailto:example@gmail.com">example@gmail.com</a><br>
-                    <a id="mob" href="tel:+444466667777">+4444-6666-7777</a>
+                    <a id="mobile" href="tel:+444466667777">+4444-6666-7777</a>
                 </p>
             </div>
             <div class="col-md-6 text-end">
@@ -127,7 +127,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <input type="button" class="btn btn-primary w-100 mt-2" onclick="CreateInvoice()" value="🧾 Create Invoice" />
+                            <input type="button" class="btn btn-primary w-100 mt-2" onclick="OrderProcess()" value="🧾 Order Process" />
                         </td>
                     </tr>
                 </table>
@@ -144,15 +144,28 @@
 </div>
 
 
-
-
-
-
 <script>
-   let base_url="http://localhost/Code_Resources/Laraveld_res/public/api";
+   let base_url="http://127.0.0.1:8000/api";
    let cart=[];
 
+document.getElementById('customer_id').addEventListener('change', async function(){
+    var selected_customer=this.value;
+    console.log(selected_customer);
+    let response =await fetch(`${base_url}/customers/find/${selected_customer}`,{
+        method:"GET",
+        headers:{"Content-Type":"application/json"}
+    });
+    if(response.ok){
+        let data = await response.json();
+        console.log(data);
+        document.getElementById('location').textContent=data.customer.address;
+        document.getElementById('email').textContent=data.customer.email;
+        document.getElementById('mobile').textContent=data.customer.mobile;
+    }
 
+})
+
+// adding prodcut to cart ---------------------------
    document.querySelector("#btnAdd").addEventListener("click",(e)=>{
        
        // let desc=document.querySelector("#description").value;
@@ -170,7 +183,7 @@
         printCart();
     });
 
-
+// Print card------------------
     function printCart(){
         let html="";
         let total=0;
@@ -199,8 +212,8 @@
        cart.splice(index,1);
        printCart();
     }
-
-    async function CreateInvoice(){        
+// Processing Order ------------------
+    async function OrderProcess(){        
 
       if(confirm("Are you sure?")){
         let date=document.querySelector("#date").innerHTML;
