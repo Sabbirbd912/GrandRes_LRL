@@ -127,3 +127,75 @@
         </ul>
     </li>
 </ul>
+
+
+<div>
+<!-- Part of Main Menu  -->
+                <!-- ✅ Reports -->
+            <li>
+                <a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
+                    <i class="flaticon-381-notepad"></i>
+                    <span class="nav-text">Reports</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('reports/sales') }}">Sales Report</a></li>
+                    <li><a href="{{ url('reports/purchases') }}">Purchase Report</a></li>
+                    <li><a href="{{ url('reports/inventory') }}">Inventory Report</a></li>
+                    <li><a href="{{ url('reports/reservations') }}">Reservation Report</a></li>
+                    <li><a href="{{ url('reports/customers') }}">Customer Report</a></li>
+                    <li><a href="{{ url('reports/profit-loss') }}">Profit/Loss Report</a></li>
+                </ul>
+            </li>
+
+            <!-- ✅ Kitchen / Production -->
+            <li>
+                <a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
+                    <i class="fas fa-concierge-bell"></i>
+                    <span class="nav-text">Kitchen</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('kitchen/preparation') }}">Food Preparation</a></li>
+                    <li><a href="{{ url('kitchen/ingredients') }}">Ingredients Usage</a></li>
+                    <li><a href="{{ url('kitchen/stock') }}">Kitchen Stock</a></li>
+                </ul>
+            </li>
+
+            <!-- Users -->
+            <li>
+                <a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
+                    <i class="fas fa-user-circle"></i>
+                    <span class="nav-text">Users</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('auth/register') }}">Register</a></li>
+                    <li><a href="{{ url('auth/login') }}">Admin Login</a></li>
+                    <li><a href="{{ url('auth/lock') }}">User Login</a></li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">Error</a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ url('errors/400') }}">Error 400</a></li>
+                            <li><a href="{{ url('errors/403') }}">Error 403</a></li>
+                            <li><a href="{{ url('errors/404') }}">Error 404</a></li>
+                            <li><a href="{{ url('errors/500') }}">Error 500</a></li>
+                            <li><a href="{{ url('errors/503') }}">Error 503</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Admin -->
+            <li>
+                <a href="{{ url('admin#') }}" class="ai-icon" aria-expanded="false">
+                    <i class="flaticon-381-settings-2 "></i>
+                    <span class="nav-text">Admin</span>
+                </a>
+            </li>
+
+            <!-- Settings -->
+            <li>
+                <a href="{{ url('settings') }}" class="ai-icon" aria-expanded="false">
+                    <i class="flaticon-381-settings-2"></i>
+                    <span class="nav-text">Settings</span>
+                </a>
+            </li>
+</div>

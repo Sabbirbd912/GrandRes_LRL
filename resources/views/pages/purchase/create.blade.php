@@ -1,13 +1,11 @@
 <?php
    use App\Models\Supplier;
    use App\Models\RawMaterial;
-   use App\Models\Product;
    use App\Models\Company;
    use App\Models\PurchaseDetail;
 
    $Suppliers=Supplier::all();
    $raw_materials=RawMaterial::all();
-   $products=Product::all();
    $company=Company::find(1);
 ?>
 @extends("layouts.master")
@@ -121,7 +119,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <input type="button" class="btn btn-primary w-100 mt-2" onclick="CreateInvoice()" value="🧾 Create Invoice" />
+                            <input type="button" class="btn btn-primary w-100 mt-2" onclick="CreatePurchase()" value="🧾 Create Purchase" />
                         </td>
                     </tr>
                 </table>
@@ -194,7 +192,7 @@
        printCart();
     }
 
-    async function CreateInvoice(){        
+    async function CreatePurchase(){        
 
       if(confirm("Are you sure?")){
         // let date=document.querySelector("#date").innerHTML;
