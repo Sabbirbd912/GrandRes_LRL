@@ -11,6 +11,8 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\MoneyReceiptController;
+use App\Http\Controllers\RawMaterialController;
+use App\Http\Controllers\StockController;
 
 // Default Home Route
 Route::get('/', function () {
@@ -72,6 +74,19 @@ Route::get('/sales/invoices', [SalesInvoiceController::class, 'index']);
 // -------------------------
 Route::resource('money_receipts', MoneyReceiptController::class);
 // Route::get('/moneyreceipts/{id}/delete', [MoneyReceiptController::class, 'delete']);
+
+
+// -------------------------
+// RawMaterial Routes
+// -------------------------
+Route::resource('raw_materials', RawMaterialController::class);
+// Route::get('/raw_materials/{id}/confirm', [RawMaterialController::class, 'confirm']);
+
+// -------------------------
+// Stock Routes
+// -------------------------
+Route::resource('stocks', StockController::class);
+// Route::get('/raw_materials/{id}/confirm', [RawMaterialController::class, 'confirm']);
 
 
 // -------------------------

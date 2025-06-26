@@ -38,8 +38,8 @@ class PurchaseController extends Controller
         $purchase=new Purchase();
         $purchase->supplier_id=$request->supplier_id;
         $purchase->purchase_date=$request->purchase_date;
-        $purchase->delivery_date=$request->delivery_date;
-        $purchase->shipping_address=$request->shipping_address;
+        $purchase->delivery_date="N/A";
+        $purchase->shipping_address="N/A";
         $purchase->purchase_total=$request->purchase_total;
         $purchase->paid_amount=$request->paid_amount;
         $purchase->remark=$request->remark;
@@ -77,8 +77,8 @@ class PurchaseController extends Controller
     {
         $purchase->supplier_id=$request->supplier_id;
         $purchase->purchase_date=$request->purchase_date;
-        $purchase->delivery_date=$request->delivery_date;
-        $purchase->shipping_address=$request->shipping_address;
+        $purchase->delivery_date="N/A";
+        $purchase->shipping_address="N/A";
         $purchase->purchase_total=$request->purchase_total;
         $purchase->paid_amount=$request->paid_amount;
         $purchase->remark=$request->remark;

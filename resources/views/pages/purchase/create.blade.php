@@ -1,10 +1,12 @@
 <?php
    use App\Models\Supplier;
+   use App\Models\RawMaterial;
    use App\Models\Product;
    use App\Models\Company;
    use App\Models\PurchaseDetail;
 
    $Suppliers=Supplier::all();
+   $raw_materials=RawMaterial::all();
    $products=Product::all();
    $company=Company::find(1);
 ?>
@@ -22,7 +24,7 @@
                 <img src='{{ asset("/img/{$company->logo}") }}' alt="Logo" width='100' class="img-fluid rounded" />
             </div>
             <div class="col-md-6 text-end">
-                <h2 class="mb-1">🧾 Create Order</h2>
+                <h2 class="mb-1">🧾 Create Purchase</h2>
                 <h5 class="fw-bold mx-2">{{ $company->name }}</h5>
                 <p class="mb-0 text-muted">
                     {{ $company->street_address }}<br>
@@ -36,8 +38,8 @@
         {{-- Supplier Info and Order Details --}}
         <div class="row align-items-start mb-4">
             <div class="col-md-6">
-                <h6 class="text-secondary fw-semibold">Order To</h6>
-                <select id="Supplier_id" class="form-select mb-2">
+                <h6 class="text-secondary fw-semibold">Supplier Name</h6>
+                <select id="supplier_id" class="form-select mb-2">
                     @foreach($Suppliers as $Supplier)
                         <option value="{{ $Supplier->id }}">{{ $Supplier->name }}</option>
                     @endforeach
@@ -55,11 +57,11 @@
             <div class="col-md-6 text-end">
                 <table class="table table-borderless table-sm mb-0">
                     <tr>
-                        <th class="text-end">Order No:</th>
+                        <th class="text-end">Purchase No:</th>
                         <td>002</td>
                     </tr>
                     <tr>
-                        <th class="text-end">Order Date:</th>
+                        <th class="text-end">Purchase Date:</th>
                         <td>{{ date('d-M-Y') }}</td>
                     </tr>
                 </table>
@@ -79,9 +81,9 @@
                     </tr>
                     <tr>
                         <td>
-                            <select id="product_id" class="form-select">
-                                @foreach($products as $product)
-                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                            <select id="raw_material_id" class="form-select">
+                                @foreach($raw_materials as $raw_material)
+                                    <option value="{{ $raw_material->id }}">{{ $raw_material->name }}</option>
                                 @endforeach
                             </select>
                         </td>
@@ -141,7 +143,7 @@
 
 
 <script>
-   let base_url="http://localhost/intellect8/api";
+   let base_url="http://127.0.0.1:8000/api";
    let cart=[];
 
 
@@ -150,12 +152,12 @@
        // let desc=document.querySelector("#description").value;
         let unit=document.querySelector("#unit").value;
         let price=document.querySelector("#price").value;
-        let product_id=document.querySelector("#product_id").value;
-        let product_name= document.querySelector("#product_id").options[document.querySelector("#product_id").selectedIndex].text;
+        let raw_material_id=document.querySelector("#raw_material_id").value;
+        let product_name= document.querySelector("#raw_material_id").options[document.querySelector("#raw_material_id").selectedIndex].text;
         let vat=0;
         let discount=0;
         let lineTotal=unit*price-discount+vat;
-        let json={id:cart.length+1,desc:product_name,product_id:product_id,qty:unit,price:price,discount:discount,vat:vat,lineTotal:lineTotal};
+        let json={id:cart.length+1,desc:product_name,raw_material_id:raw_material_id,qty:unit,price:price,discount:discount,vat:vat,lineTotal:lineTotal};
 
         cart.push(json);        
         console.log(cart);
@@ -195,26 +197,26 @@
     async function CreateInvoice(){        
 
       if(confirm("Are you sure?")){
-        let date=document.querySelector("#date").innerHTML;
-        let Supplier_id=document.querySelector("#Supplier_id").value;
+        // let date=document.querySelector("#date").innerHTML;
+        let supplier_id=document.querySelector("#supplier_id").value;
         let total=document.querySelector("#netTotal").innerHTML;
         
         
         let jsonData={
-            created_at:date,
-            updated_at:date,
-            Supplier_id:Supplier_id,
+            // created_at:date,
+            // updated_at:date,
+            supplier_id:supplier_id,
             remark:"Na",
             payment_term:"CASH",
-            invoice_total:total,
-            paid_total:total,
+            purchase_total:total,
+            paid_amount:total,
             previous_due:0,
             items:cart
         }
 
         console.log(jsonData);
 
-        let response=await fetch(`${base_url}/invoice/save`,{
+        let response=await fetch(`${base_url}/purchases`,{
         method:"POST",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify(jsonData)

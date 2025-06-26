@@ -15,7 +15,8 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        //
+        $purchases=Purchase::all();
+        return response()->json(["purchases"=>$purchases]);
     }
 
     /**
@@ -27,10 +28,10 @@ class PurchaseController extends Controller
         $purchase->supplier_id=$request->supplier_id;
         $purchase->purchase_date=date("Y-m-d");
         $purchase->delivery_date=date("Y-m-d");
-        $purchase->shipping_address=$request->shipping_address;
+        $purchase->shipping_address="N/A";
         $purchase->purchase_total=$request->purchase_total;
         $purchase->paid_amount=$request->paid_amount;
-        $purchase->remark=$request->remark;
+        $purchase->remark="N/A";
         $purchase->status_id=1;
         $purchase->discount=0;
         $purchase->vat=0;
@@ -41,7 +42,7 @@ class PurchaseController extends Controller
         foreach($items as $item){
             $details=new PurchaseDetail();
             $details->purchase_id=$purchase->id;
-            $details->product_id=$item["product_id"];
+            $details->raw_material_id=$item["raw_material_id"];
             $details->qty=$item["qty"];
             $details->price=$item["price"];
             $details->vat=$item["vat"];
@@ -49,11 +50,10 @@ class PurchaseController extends Controller
             $details->save();
 
             $stock=new Stock();
-            $stock->product_id=$item["product_id"];
+            $stock->raw_material_id=$item["raw_material_id"];
             $stock->transaction_type_id=1;
             $stock->qty=$item["qty"];       
             $stock->remark="Purchase";  
-            $stock->warehouse_id=1;  
             //$stock->timestamps = false;
             $stock->save();
         }

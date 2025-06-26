@@ -24,16 +24,6 @@
           <label for="purchase_date" class="form-label">Purchase Date</label>
           <input type="date" name="purchase_date" id="purchase_date" value="{{ $purchase->purchase_date }}" class="form-control input-light-green" required>
         </div>
-
-        <div class="mb-3">
-          <label for="delivery_date" class="form-label">Delivery Date</label>
-          <input type="date" name="delivery_date" id="delivery_date" value="{{ $purchase->delivery_date }}" class="form-control input-light-green" required>
-        </div>
-
-        <div class="mb-3">
-          <label for="shipping_address" class="form-label">Shipping Address</label>
-          <input type="text" name="shipping_address" id="shipping_address" value="{{ $purchase->shipping_address }}" class="form-control input-light-green" required>
-        </div>
         <div class="mb-3">
           <label for="purchase_total" class="form-label">Purchase Total</label>
           <input type="number" name="purchase_total" id="purchase_total" value="{{ $purchase->purchase_total }}" class="form-control input-light-green" required>

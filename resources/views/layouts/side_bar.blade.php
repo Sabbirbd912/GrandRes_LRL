@@ -107,11 +107,11 @@
                     <span class="nav-text">Inventory</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ url('inventory/current') }}">Current Stock</a></li>
-                    <li><a href="{{ url('inventory/in') }}">Stock In</a></li>
+                    <li><a href="{{ url('raw_materials') }}">Raw-Material</a></li>
+                    <!-- <li><a href="{{ url('inventory/in') }}">Stock In</a></li>
                     <li><a href="{{ url('inventory/out') }}">Stock Out</a></li>
-                    <li><a href="{{ url('inventory/adjustment') }}">Stock Adjustment</a></li>
-                    <li><a href="{{ url('inventory/report') }}">Inventory Report</a></li>
+                    <li><a href="{{ url('inventory/adjustment') }}">Stock Adjustment</a></li> -->
+                    <li><a href="{{ url('stocks') }}">Stock Balance</a></li>
                 </ul>
             </li>
 
