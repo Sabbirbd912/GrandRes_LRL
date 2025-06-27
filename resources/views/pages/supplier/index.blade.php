@@ -32,9 +32,15 @@
               </td>
               <td>
                 <div class="btn-group mb-2" role="group">
-                  <a href='{{ url("suppliers/$supplier->id/edit") }}' class="btn btn-primary btn-sm">Edit</a>
-                  <a href='{{ url("suppliers/$supplier->id") }}' class="btn btn-success btn-sm">View</a>
-                  <a href='{{ url("suppliers/$supplier->id/delete") }}' class="btn btn-danger btn-sm">Delete</a>
+                  <a href='{{ url("suppliers/$supplier->id/edit") }}' class="btn btn-sm btn-outline-primary" title="Edit">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                  <a href='{{ url("suppliers/$supplier->id") }}' class="btn btn-sm btn-outline-success" title="View">
+                    <i class="bi bi-eye"></i>
+                  </a>
+                  <a href='{{ url("suppliers/$supplier->id/delete") }}' class="btn btn-sm btn-outline-danger" title="Delete">
+                    <i class="bi bi-trash"></i>
+                  </a>
                 </div>
               </td>
             </tr>
@@ -52,22 +58,14 @@
 
 @push('styles')
 <style>
-  .btn-icon {
-    transition: 0.4s ease-in-out;
+  .btn:hover {
+    transform: scale(1.05);
+    transition: 0.3s ease;
   }
 
-  .btn-icon:hover {
-    background-color: rgba(0, 255, 13, 0.24);
-    transform: scale(1.2);
-    border-radius: 5px;
-  }
-
-  .btn-icon i {
-    font-size: 1.1rem;
-  }
-
-  .bg-light-blue {
-    background-color: #e0f7fa !important;
+  .table td, .table th {
+    vertical-align: middle !important;
+    white-space: nowrap;
   }
 </style>
 @endpush

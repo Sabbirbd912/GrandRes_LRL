@@ -58,7 +58,7 @@ class CustomerController extends Controller
         }
         return response()->json($customer);
     }
-
+    
     /**
      * Update the specified resource in storage.
      */

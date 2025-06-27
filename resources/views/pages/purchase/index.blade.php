@@ -1,5 +1,7 @@
 @extends("layouts.master")
 
+@section("title", "Purchase List")
+
 @section("page")
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
@@ -7,16 +9,15 @@
     <a class="btn btn-success" href="{{ url('purchases/create') }}">➕ New Purchase</a>
   </div>
 
-  <div class="card shadow">
+  <div class="card shadow-sm">
     <div class="card-body table-responsive">
-      <table class="table table-bordered align-middle text-center">
+      <table class="table table-bordered align-middle text-center w-100">
         <thead class="table-light">
           <tr>
             <th>ID</th>
             <th>Supplier</th>
-            <th>Shipping Address</th>
-            <th>Purchase Total</th>
-            <th>Paid Amount</th>
+            <th>Total</th>
+            <th>Paid</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -25,14 +26,19 @@
             <tr>
               <td>{{ $purchase->id }}</td>
               <td>{{ $purchase->supplier_name }}</td>
-              <td>{{ $purchase->shipping_address }}</td>
-              <td>{{ $purchase->purchase_total }}</td>
-              <td>{{ $purchase->paid_amount }}</td>
+              <td>{{ number_format($purchase->purchase_total, 2) }}</td>
+              <td>{{ number_format($purchase->paid_amount, 2) }}</td>
               <td>
-                <div class="btn-group mb-2">
-                  <a href='{{ url("purchases/$purchase->id/edit") }}' class="btn btn-primary btn-sm">Edit</a>
-                  <a href='{{ url("purchases/$purchase->id") }}' class="btn btn-success btn-sm">View</a>
-                  <a href='{{ url("purchases/$purchase->id/delete") }}' class="btn btn-danger btn-sm">Delete</a>
+                <div class="btn-group" role="group">
+                  <a href='{{ url("purchases/$purchase->id/edit") }}' class="btn btn-sm btn-outline-primary" title="Edit">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                  <a href='{{ url("purchases/$purchase->id") }}' class="btn btn-sm btn-outline-success" title="View">
+                    <i class="bi bi-eye"></i>
+                  </a>
+                  <a href='{{ url("purchases/$purchase->id/delete") }}' class="btn btn-sm btn-outline-danger" title="Delete">
+                    <i class="bi bi-trash"></i>
+                  </a>
                 </div>
               </td>
             </tr>
@@ -54,22 +60,14 @@
 
 @push('styles')
 <style>
-  .btn-icon {
-    transition: 0.4s ease-in-out;
+  .btn:hover {
+    transform: scale(1.05);
+    transition: 0.3s ease;
   }
 
-  .btn-icon:hover {
-    background-color: rgba(0, 255, 13, 0.24);
-    transform: scale(1.2);
-    border-radius: 5px;
-  }
-
-  .btn-icon i {
-    font-size: 1.1rem;
-  }
-
-  .bg-light-blue {
-    background-color: #e0f7fa !important;
+  .table td, .table th {
+    vertical-align: middle !important;
+    white-space: nowrap;
   }
 </style>
 @endpush

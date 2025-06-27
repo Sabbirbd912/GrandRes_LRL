@@ -85,7 +85,10 @@ Route::resource('raw_materials', RawMaterialController::class);
 // -------------------------
 // Stock Routes
 // -------------------------
+Route::get('stocks/balance', [StockController::class, 'balance'])->name('stocks.balance');
 Route::resource('stocks', StockController::class);
+
+
 // Route::get('/raw_materials/{id}/confirm', [RawMaterialController::class, 'confirm']);
 
 

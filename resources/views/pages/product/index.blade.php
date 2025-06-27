@@ -1,16 +1,18 @@
 @extends("layouts.master")
 
-@section("page")
+@section("title", "Product List")
 
-<div class="container mt-2">
-  <div class="card">
-        <div class="card-header bg-light-blue text-black">
-        <h5 class="mb-0">🍛 Edit Product</h5>
-        </div>
-    <div class="card-body ">
-      <!-- <table class="table table-bordered table-striped table-hover align-middle text-center"> -->
-      <table class="table table-bordered align-middle text-center">
-        <thead class="table">
+@section("page")
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="text-primary">🍛 Product List</h3>
+    <a href="{{ url('products/create') }}" class="btn btn-success">➕ New Product</a>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body table-responsive">
+      <table class="table table-bordered align-middle text-center w-100">
+        <thead class="table-light">
           <tr>
             <th>ID</th>
             <th>Photo</th>
@@ -21,56 +23,54 @@
         </thead>
         <tbody>
           @forelse ($products as $product)
-          <tr>
-            <td>{{ $product->id }}</td>
-            <td>
-              <img src='{{ url("/img/$product->photo") }}' width="100" class="rounded shadow-sm" />
-            </td>
-            <td>{{ $product->name }}</td>
-            <td>{{ $product->offer_price }}</td>
-            <td>
-              <div class="btn-group" role="group">
-                <a href='{{ url("products/$product->id/edit") }}' class="btn btn-lg btn-icon text-primary" title="Edit">
-                  <i class="fas fa-edit"></i>
-                </a>
-                <a href='{{ url("products/$product->id") }}' class="btn btn-lg btn-icon text-success" title="View">
-                  <i class="fas fa-eye"></i>
-                </a>
-                <a href='{{ url("products/$product->id/confirm") }}' class="btn btn-lg btn-icon text-danger" title="Delete">
-                  <i class="fas fa-trash-alt"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
+            <tr>
+              <td>{{ $product->id }}</td>
+              <td>
+                <img src="{{ url("/img/$product->photo") }}" width="70" class="img-thumbnail shadow-sm" />
+              </td>
+              <td>{{ $product->name }}</td>
+              <td>{{ $product->offer_price }}</td>
+              <td>
+                <div class="btn-group" role="group">
+                  <a href="{{ url("products/$product->id/edit") }}" class="btn btn-sm btn-outline-primary" title="Edit">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                  <a href="{{ url("products/$product->id") }}" class="btn btn-sm btn-outline-success" title="View">
+                    <i class="bi bi-eye"></i>
+                  </a>
+                  <a href="{{ url("products/$product->id/confirm") }}" class="btn btn-sm btn-outline-danger" title="Delete">
+                    <i class="bi bi-trash"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
           @empty
-          <tr>
-            <td colspan="5">No Foods Found</td>
-          </tr>
+            <tr>
+              <td colspan="5" class="text-center">No Products Found</td>
+            </tr>
           @endforelse
         </tbody>
       </table>
     </div>
   </div>
 </div>
+@endsection
 
+@push('styles')
 <style>
-  .btn-icon {
-    transition: 0.4s ease-in-out;
+  .btn:hover {
+    transform: scale(1.05);
+    transition: 0.3s ease;
   }
 
-  .btn-icon:hover {
-    background-color: rgba(0, 255, 13, 0.24);
-    transform: scale(1.2);
-    border-radius: 5px;
+  .table td, .table th {
+    vertical-align: middle !important;
+    white-space: nowrap;
   }
 
-  .btn-icon i {
-    font-size: 1.1rem;
-  }
-
-  .bg-light-blue {
-    background-color: #e0f7fa !important;
+  .img-thumbnail {
+    border-radius: 8px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
   }
 </style>
-
-@endsection
+@endpush

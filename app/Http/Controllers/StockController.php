@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Stock;
+use App\Models\RawMaterial;
+use App\Models\TransactionType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StockController extends Controller
 {
@@ -63,4 +66,17 @@ class StockController extends Controller
     {
         //
     }
+
+    public function balance()
+	{
+		$result = DB::table('stocks') // Laravel adds 'core_' prefix
+			->join('transaction_types', 'transaction_types.id', '=', 'stocks.transaction_type_id')
+			->join('raw_materials', 'raw_materials.id', '=', 'stocks.raw_material_id')
+			->select('raw_materials.id', 'raw_materials.name as raw_material', DB::raw('SUM(core_stocks.qty) as total'))
+			->groupBy('stocks.raw_material_id', 'raw_materials.id', 'raw_materials.name')
+			->get();
+
+
+		return view("pages.stock.balance",["balances"=>$result]);
+	}
 }

@@ -1,44 +1,68 @@
 @extends("layouts.master")
-    @section("page")
-        <?php
-            use App\Libraries\Core\File;
-        ?>
 
-        <div class="container">
+@section("title", "Order List")
 
-            <!-- <a class="btn btn-info" href="{{url('orders/create')}}">New Order</a> -->
-            <table class="table">
-                <tr>
-                    <th>Id</th>
-                    <th>Customer Id</th>
-                    <th>Order Date</th>
-                    <th>Delivery Date</th>
-                    <th>Address</th>
-                    <th>Status</th>
-                </tr>
-            @forelse ($orders as $order)
-                <tr>
-                    <td>{{$order->id}}</td>
-                    <td>{{ $order->customer->name ?? 'No Customer' }}</td>
-                    <td>{{$order->order_date}}</td>
-                    <td>{{$order->delivery_date}}</td>
-                    <td>{{$order->shipping_address}}</td>
-                    <td>{{$order->status_id}}</td>
-                    <td>
-                        <div class="btn-group">
-                            <a class="btn btn-primary" href='{{url("orders/$order->id/edit")}}'>Edit</a>
-                            <a class="btn btn-success" href='{{url("orders/$order->id")}}'>View</a>
-                            <a class="btn btn-warning" href='{{url("orders/$order->id/delete")}}'>Delete</a>
-                        </div>
-                    </td>
-                </tr>
-                
-            @empty
-                <tr><td>No Order</td></tr>
-            @endforelse
-        </div>
+@section("page")
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="text-primary">📦 Order List</h3>
+    <a class="btn btn-success" href="{{ url('orders/create') }}">➕ New Order</a>
+  </div>
 
+  <div class="card shadow-sm">
+    <div class="card-body table-responsive">
+      <table class="table table-bordered align-middle text-center w-100">
+        <thead class="table-light">
+          <tr>
+            <th>ID</th>
+            <th>Customer</th>
+            <th>Order Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          @forelse ($orders as $order)
+            <tr>
+              <td>{{ $order->id }}</td>
+              <td>{{ $order->customer->name ?? 'No Customer' }}</td>
+              <td>{{ $order->order_date }}</td>
+              <td>
+                <div class="btn-group" role="group">
+                  <a href='{{ url("orders/$order->id/edit") }}' class="btn btn-sm btn-outline-primary" title="Edit">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                  <a href='{{ url("orders/$order->id") }}' class="btn btn-sm btn-outline-success" title="View">
+                    <i class="bi bi-eye"></i>
+                  </a>
+                  <a href='{{ url("orders/$order->id/delete") }}' class="btn btn-sm btn-outline-danger" title="Delete">
+                    <i class="bi bi-trash"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
+          @empty
+            <tr>
+              <td colspan="4" class="text-center">No orders found.</td>
+            </tr>
+          @endforelse
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+@endsection
 
+@push('styles')
 
+<style>
+  .btn:hover {
+    transform: scale(1.05);
+    transition: 0.3s ease;
+  }
 
-    @endsection
+  .table td, .table th {
+    vertical-align: middle !important;
+    white-space: nowrap;
+  }
+</style>
+@endpush

@@ -93,7 +93,7 @@
                     <span class="nav-text">Purchases</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ url('purchases/create') }}">Add Purchase</a></li>
+                    <li><a href="{{ url('purchases/create') }}">Create Purchase</a></li>
                     <li><a href="{{ url('purchases') }}">Manage Purchases</a></li>
                     <!-- <li><a href="{{ url('purchases/history') }}">Purchase History</a></li> -->
                     <!-- <li><a href="{{ url('suppliers') }}">Supplier List</a></li> -->
@@ -107,11 +107,11 @@
                     <span class="nav-text">Inventory</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ url('raw_materials') }}">Raw-Material</a></li>
+                    <li><a href="{{ url('raw_materials') }}">Manage Raw-Material</a></li>
                     <!-- <li><a href="{{ url('inventory/in') }}">Stock In</a></li>
-                    <li><a href="{{ url('inventory/out') }}">Stock Out</a></li>
                     <li><a href="{{ url('inventory/adjustment') }}">Stock Adjustment</a></li> -->
-                    <li><a href="{{ url('stocks') }}">Stock Balance</a></li>
+                    <li><a href="{{ url('stocks/balance') }}">Stock Balance</a></li>
+                    <li><a href="{{ url('stocks') }}">All Stock Raw-Materials</a></li>
                 </ul>
             </li>
 
