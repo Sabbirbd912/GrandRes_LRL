@@ -151,14 +151,13 @@ class ReservationController extends Controller
         $reservation->status = 3; // Checked Out
         $reservation->save();
 
-        $this->releaseTable($reservation);
+        // ✅ টেবিল রিলিজ
+        $this->releaseTable($reservation); // এই ফাংশন নিচে থাকবে
 
         return redirect()->back()->with('success', 'Customer checked out. Table is now available.');
     }
 
-    /**
-     * Helper method to release a table.
-     */
+    // ✅ এই ফাংশনটি ReservationController-এর মধ্যেই লিখতে হবে:
     private function releaseTable(Reservation $reservation)
     {
         $table = Table::find($reservation->table_id);
@@ -167,4 +166,5 @@ class ReservationController extends Controller
             $table->save();
         }
     }
+
 }

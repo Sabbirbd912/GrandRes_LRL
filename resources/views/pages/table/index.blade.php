@@ -28,8 +28,6 @@
                 Place Order
               </a>
             </div>
-
-
           </div>
         </div>
       </div>
