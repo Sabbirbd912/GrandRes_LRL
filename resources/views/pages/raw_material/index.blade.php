@@ -4,7 +4,7 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h3 class="text-primary">🧾 Raw Material</h3>
-    <a class="btn btn-success" href="{{ url('raw_material/create') }}">➕ New Rameteral</a>
+    <a class="btn btn-success" href="{{ url('raw_materials/create') }}">➕ New Rameteral</a>
   </div>
 
   <div class="card shadow">

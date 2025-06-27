@@ -21,7 +21,7 @@ class RawMaterialController extends Controller
      */
     public function create()
     {
-        //
+        return view("pages.raw_material.create");
     }
 
     /**
@@ -29,7 +29,13 @@ class RawMaterialController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $raw_material=new RawMaterial();
+        $raw_material->name=$request->name;
+        $raw_material->qty=$request->qty;
+        $raw_material->price=$request->price;
+        $raw_material->save();
+
+        return redirect ("raw_materials");
     }
 
     /**
