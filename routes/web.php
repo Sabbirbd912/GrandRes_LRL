@@ -28,8 +28,10 @@ Route::get('/products/{id}/confirm', [ProductController::class, 'confirm']);
 // -------------------------
 // Table Routes
 // -------------------------
-Route::resource('tables', TableController::class);
+Route::get('tables/{id}/book', [TableController::class, 'book'])->name('tables.book');
 Route::get('/tables/{id}/confirm', [TableController::class, 'confirm']);
+Route::resource('tables', TableController::class);
+
 
 // -------------------------
 // Customer Routes

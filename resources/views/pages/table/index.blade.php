@@ -22,10 +22,14 @@
             @else
               <span class="badge bg-success mb-2">Available</span>
             @endif
-
             <div class="d-grid">
-              <a href="{{ url('orders/create?table_id=' . $table->id) }}" class="btn btn-purple text-white">Place Order</a>
+              <a href="{{ url('tables/' . $table->id . '/book') }}" class="btn btn-purple text-white"
+                onclick="return confirm('Are you sure you want to place order and book this table?')">
+                Place Order
+              </a>
             </div>
+
+
           </div>
         </div>
       </div>

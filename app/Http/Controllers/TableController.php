@@ -106,4 +106,20 @@ class TableController extends Controller
         $table->delete();
         return redirect ("tables");
     }
+
+    public function book($id)
+    {
+        $table = Table::findOrFail($id);
+
+        if ($table->status == 0) {
+            $table->status = 1; // Mark as Booked
+            $table->save();
+        }
+
+        // 🔁 Redirect to order create page
+        return redirect('orders/create?table_id=' . $table->id)
+            ->with('success', 'Table booked. Please place the order.');
+    }
+
+
 }
