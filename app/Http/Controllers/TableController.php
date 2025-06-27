@@ -113,30 +113,14 @@ class TableController extends Controller
     {
         $table = Table::findOrFail($id);
 
-        // যদি টেবিল ফাঁকা থাকে, তখনই বুক করব
         if ($table->status == 0) {
             $table->status = 1;
             $table->save();
-
-            // ✅ Default বা logged-in কাস্টমার ID
-            $defaultCustomerId = 40; // চাইলে Auth::id() ব্যবহার করতে পারেন
-
-            // ✅ Current time
-            $now = Carbon::now();
-
-            // ✅ Reservation create & confirm
-            $reservation = new Reservation();
-            $reservation->customer_id = $defaultCustomerId;
-            $reservation->table_id = $table->id;
-            $reservation->reservation_date = $now->toDateString();
-            $reservation->reservation_time = $now->format('H:i');
-            $reservation->status = 1; // 🔥 Direct Confirmed
-            $reservation->save();
         }
 
-        return redirect('orders/create?table_id=' . $table->id)
-            ->with('success', 'Table booked and reservation confirmed. You can now place the order.');
+        return redirect('orders/create?table_id=' . $id);
     }
+
 
 
 }
