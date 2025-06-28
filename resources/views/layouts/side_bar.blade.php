@@ -57,7 +57,8 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{url('tables/create')}}">Create Table</a></li>
-                    <li><a href="{{ url('tables') }}">Manage Table</a></li>
+                    <li><a href="{{ url('manage_table') }}">Manage Table</a></li>
+                    <li><a href="{{ url('tables') }}">Show Tables</a></li>
                 </ul>
             </li>
 

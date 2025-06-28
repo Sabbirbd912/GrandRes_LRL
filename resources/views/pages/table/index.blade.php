@@ -15,7 +15,7 @@
             <span>{{ $table->name }}</span>
             <span>Seats: {{ $table->seats }}</span>
           </div>
-          <img src="{{ url('/img/' . $table->photo) }}" class="card-img-top" style="height: 180px; object-fit: cover;" alt="Table Photo">
+          <img src="{{ asset('img/' . $table->photo) }}" class="card-img-top" style="height: 180px; object-fit: cover;" alt="Table Photo">
           <div class="card-body text-center">
             @if ($table->status == 1)
               <span class="badge bg-danger mb-2">Booked</span>

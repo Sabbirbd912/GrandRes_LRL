@@ -28,8 +28,9 @@
         <div class="mb-3">
           <label for="photo" class="form-label">Photo</label>
           <input type="file" name="photo" id="photo" class="form-control input-light-green">
-          @if($table->photo)
-            <img src="{{ url('img/' . $table->photo) }}" width="120" class="mt-2 rounded shadow-sm" />
+          
+          @if(isset($table->photo))
+            <img src="{{ asset('img/' . $table->photo) }}" width="120" class="mt-2 rounded shadow-sm">
           @endif
         </div>
 

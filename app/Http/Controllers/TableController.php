@@ -40,14 +40,14 @@ class TableController extends Controller
         $table->status=$request->status;
         $table->seats=$request->seats;
         $table->save();
-            if($request->hasFile('photo')){
-        //upload file
-        $imageName=$table->id.'.'.$request->photo->extension();			
-        $request->photo->move(public_path('img'),$imageName);
 
-        //update database
-        $table->photo=$imageName;
-        $table->update();
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $imageName = uniqid('table_') . '.' . $photo->getClientOriginalExtension();
+            $photo->move(public_path('img/tables'), $imageName);
+
+            $table->photo = 'tables/' . $imageName;
+            $table->update();
         }
         return redirect("tables");
     }
@@ -75,23 +75,28 @@ class TableController extends Controller
      */
     public function update(Request $request, Table $table)
     {
-        $table->name=$request->name;
-        $table->status=$request->status;
-        $table->seats=$request->seats;
-        
+        $table->name = $request->name;
+        $table->status = $request->status;
+        $table->seats = $request->seats;
+
+        if ($request->hasFile('photo')) {
+            // পুরনো ছবি থাকলে মুছে ফেলি
+            if ($table->photo && file_exists(public_path('img/' . $table->photo))) {
+                unlink(public_path('img/' . $table->photo));
+            }
+
+            $photo = $request->file('photo');
+            $imageName = uniqid('table_') . '.' . $photo->getClientOriginalExtension();
+            $photo->move(public_path('img/tables'), $imageName);
+
+            $table->photo = 'tables/' . $imageName;
+        }
+
         $table->update();
 
-            if($request->hasFile('photo')){
-            //upload file
-            $imageName=$table->id.'.'.$request->photo->extension();			
-            $request->photo->move(public_path('img'),$imageName);
-
-            //update database
-            $table->photo=$imageName;
-            $table->update();
-        }
-        return redirect("tables");
+        return redirect('tables');
     }
+
 
     /**
      * Remove the specified resource from storage.
