@@ -60,17 +60,17 @@
                   {{-- Confirm or Cancel --}}
                   <div class="btn-group mt-1" role="group">
                     <a href="{{ url("reservations/{$reservation->id}/confirm") }}" class="btn btn-sm btn-outline-success" title="Confirm">
-                      <i class="bi bi-check-circle"></i> Confirm
+                      <i class="bi bi-check-circle"></i>
                     </a>
                     <a href="{{ url("reservations/{$reservation->id}/cancel") }}" class="btn btn-sm btn-outline-danger" title="Cancel">
-                      <i class="bi bi-x-circle"></i> Cancel
+                      <i class="bi bi-x-circle"></i>
                     </a>
                   </div>
                 @elseif ($reservation->status == 1)
                   {{-- Checkout --}}
                   <div class="btn-group mt-1" role="group">
                     <a href="{{ url("reservations/{$reservation->id}/checkout") }}" class="btn btn-sm btn-outline-dark" title="Checkout">
-                      <i class="bi bi-box-arrow-right"></i> Checkout
+                      <i class="bi bi-box-arrow-right"></i>
                     </a>
                   </div>
                 @endif
