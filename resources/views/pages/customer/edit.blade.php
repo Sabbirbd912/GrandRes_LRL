@@ -37,7 +37,7 @@
           <label for="photo" class="form-label">Photo</label>
           <input type="file" name="photo" id="photo" class="form-control input-light-green">
           @if($customer->photo)
-            <img src="{{ url('img/' . $customer->photo) }}" width="120" class="mt-2 rounded shadow-sm" />
+            <img src="{{ asset('img/' . $customer->photo) }}" width="120" class="mt-2 rounded shadow-sm" />
           @endif
         </div>
         <div class="text-end">

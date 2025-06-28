@@ -39,18 +39,15 @@ class CustomerController extends Controller
         $customer->address=$request->address;
         $customer->save();
 
-            if($request->hasFile('photo')){
-                //upload file
-                $imageName=$customer->id.'.'.$request->photo->extension();			
-                $request->photo->move(public_path('img'),$imageName);
+            if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $imageName = uniqid('customer_') . '.' . $photo->getClientOriginalExtension();
+            $photo->move(public_path('img/customers'), $imageName);
 
-                //update database
-                $customer->photo=$imageName;
-                $customer->update();
-            }
-
+            $customer->photo = 'customers/' . $imageName;
+            $customer->update();
+        }
         return redirect("customers");
-
     }
 
     /**
@@ -83,16 +80,18 @@ class CustomerController extends Controller
         $customer->address=$request->address;
         $customer->update();
 
-            if($request->hasFile('photo')){
-                //upload file
-                $imageName=$customer->id.'.'.$request->photo->extension();			
-                $request->photo->move(public_path('img'),$imageName);
-    
-                //update database
-                $customer->photo=$imageName;
-                $customer->update();
-            }
+
+
+            if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $imageName = uniqid('customer_') . '.' . $photo->getClientOriginalExtension();
+            $photo->move(public_path('img/customers'), $imageName);
+
+            $customer->photo = 'customers/' . $imageName;
+            $customer->update();
+        }
         return redirect("customers");
+
     }
 
     /**
