@@ -28,6 +28,7 @@ Route::get('/products/{id}/confirm', [ProductController::class, 'confirm']);
 // -------------------------
 // Table Routes
 // -------------------------
+Route::get('tables/manage', [TableController::class, 'manage']);
 Route::get('tables/{id}/book', [TableController::class, 'book'])->name('tables.book');
 Route::get('/tables/{id}/confirm', [TableController::class, 'confirm']);
 Route::resource('tables', TableController::class);

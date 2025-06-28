@@ -21,7 +21,13 @@ class TableController extends Controller
         $tables = Table::with('reservation')->get(); // ✅ সঠিক
         return view("pages.table.index",["tables"=>$tables]);
     }
-
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function manage(){
+        $tables=Table::all();
+        return view("pages.table.manage",["tables"=>$tables]);
+    }
     /**
      * Show the form for creating a new resource.
      */
