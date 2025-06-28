@@ -20,3 +20,22 @@ Route::apiResources([
     'money_receipts' => MoneyReceiptController::class,
     'purchases' => PurchaseController::class,
 ]);
+
+Route::post('/auto-reserve', function(Request $request){
+    $reservation = new \App\Models\Reservation();
+    $reservation->customer_id = $request->customer_id;
+    $reservation->table_id = $request->table_id;
+    $reservation->reservation_date = date("Y-m-d");
+    $reservation->reservation_time = date("H:i:s");
+    $reservation->status = 1; // Confirmed
+    $reservation->save();
+
+    // Table Book
+    $table = \App\Models\Table::find($request->table_id);
+    if ($table) {
+        $table->status = 1;
+        $table->save();
+    }
+
+    return response()->json(['success' => true, 'message' => 'Reserved']);
+});

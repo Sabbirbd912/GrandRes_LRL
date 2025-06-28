@@ -48,6 +48,7 @@ Route::get('/orders/{id}/delete', [OrderController::class, 'delete']);
 // -------------------------
 // Reservation Routes
 // -------------------------
+Route::post('/auto-reserve', [ReservationController::class, 'autoReserveAndConfirm']);
 Route::resource('reservations', ReservationController::class);
 Route::get('/reservations/{id}/delete', [ReservationController::class, 'delete']);
 Route::get('/reservations/{id}/confirm', [ReservationController::class, 'confirm']);

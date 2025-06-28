@@ -15,7 +15,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::with('customer')->get();
+        $reservations = Reservation::with('customer', 'table')->latest()->get();
         return view("pages.reservation.index", ["reservations" => $reservations]);
     }
 
@@ -125,7 +125,14 @@ class ReservationController extends Controller
         $reservation->status = 1; // Confirmed
         $reservation->save();
 
-        return redirect()->back()->with('success', 'Reservation confirmed.');
+        // ✅ টেবিল বুক করা থাকলে, তা Confirm করা উচিত
+        $table = Table::find($reservation->table_id);
+        if ($table) {
+            $table->status = 1; // Booked
+            $table->save();
+        }
+
+        return redirect()->back()->with('success', 'Reservation confirmed and table marked as booked.');
     }
 
     /**

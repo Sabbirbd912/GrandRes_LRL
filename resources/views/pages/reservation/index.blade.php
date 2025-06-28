@@ -14,17 +14,21 @@
       <table class="table table-bordered align-middle text-center w-100">
         <thead class="table-light">
           <tr>
-            <th>ID</th>
+            <th>#</th>
             <th>Customer</th>
             <th>Table</th>
             <th>Date</th>
             <th>Time</th>
             <th>Status</th>
-            <th>Action</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           @forelse ($reservations as $reservation)
+            @php
+              $statusColors = [0 => 'warning', 1 => 'success', 2 => 'danger', 3 => 'secondary'];
+              $statusLabels = [0 => 'Pending', 1 => 'Confirmed', 2 => 'Cancelled', 3 => 'Checked Out'];
+            @endphp
             <tr>
               <td>{{ $reservation->id }}</td>
               <td>{{ $reservation->customer->name ?? 'Unknown' }}</td>
@@ -32,47 +36,50 @@
               <td>{{ $reservation->reservation_date }}</td>
               <td>{{ $reservation->reservation_time }}</td>
               <td>
-                @php
-                  $statusColors = [0 => 'warning', 1 => 'success', 2 => 'danger', 3 => 'secondary'];
-                  $statusLabels = [0 => 'Pending', 1 => 'Confirmed', 2 => 'Cancelled', 3 => 'Checked Out'];
-                @endphp
                 <span class="badge bg-{{ $statusColors[$reservation->status] }}">
                   {{ $statusLabels[$reservation->status] ?? 'Unknown' }}
                 </span>
               </td>
               <td>
-                <div class="btn-group mb-2" role="group">
-                  <a class="btn btn-sm btn-outline-primary" title="Edit" href="{{ url("reservations/$reservation->id/edit") }}">
-                    <i class="bi bi-pencil-square"></i>
-                  </a>
-                  <a class="btn btn-sm btn-outline-success" title="View" href="{{ url("reservations/$reservation->id") }}">
+                <div class="btn-group" role="group">
+                  {{-- View --}}
+                  <a href="{{ url("reservations/{$reservation->id}") }}" class="btn btn-sm btn-outline-success" title="View">
                     <i class="bi bi-eye"></i>
                   </a>
-                  <a class="btn btn-sm btn-outline-danger" title="Delete" href="{{ url("reservations/$reservation->id/delete") }}">
+                  {{-- Edit --}}
+                  <a href="{{ url("reservations/{$reservation->id}/edit") }}" class="btn btn-sm btn-outline-primary" title="Edit">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                  {{-- Delete --}}
+                  <a href="{{ url("reservations/{$reservation->id}/delete") }}" class="btn btn-sm btn-outline-danger" title="Delete">
                     <i class="bi bi-trash"></i>
                   </a>
                 </div>
 
                 @if ($reservation->status == 0)
+                  {{-- Confirm or Cancel --}}
                   <div class="btn-group mt-1" role="group">
-                    <a href="{{ url("reservations/$reservation->id/confirm") }}" class="btn btn-sm btn-outline-success" title="Confirm">
-                      <i class="bi bi-check-circle"></i>
+                    <a href="{{ url("reservations/{$reservation->id}/confirm") }}" class="btn btn-sm btn-outline-success" title="Confirm">
+                      <i class="bi bi-check-circle"></i> Confirm
                     </a>
-                    <a href="{{ url("reservations/$reservation->id/cancel") }}" class="btn btn-sm btn-outline-danger" title="Cancel">
-                      <i class="bi bi-x-circle"></i>
+                    <a href="{{ url("reservations/{$reservation->id}/cancel") }}" class="btn btn-sm btn-outline-danger" title="Cancel">
+                      <i class="bi bi-x-circle"></i> Cancel
                     </a>
                   </div>
                 @elseif ($reservation->status == 1)
+                  {{-- Checkout --}}
                   <div class="btn-group mt-1" role="group">
-                    <a href="{{ url("reservations/$reservation->id/checkout") }}" class="btn btn-sm btn-outline-dark" title="Checkout">
-                      <i class="bi bi-box-arrow-right"></i>
+                    <a href="{{ url("reservations/{$reservation->id}/checkout") }}" class="btn btn-sm btn-outline-dark" title="Checkout">
+                      <i class="bi bi-box-arrow-right"></i> Checkout
                     </a>
                   </div>
                 @endif
               </td>
             </tr>
           @empty
-            <tr><td colspan="7" class="text-center">No reservations found.</td></tr>
+            <tr>
+              <td colspan="7" class="text-center text-muted">No reservations found.</td>
+            </tr>
           @endforelse
         </tbody>
       </table>
@@ -87,12 +94,10 @@
     transform: scale(1.05);
     transition: 0.3s ease;
   }
-
   .table td, .table th {
     vertical-align: middle !important;
     white-space: nowrap;
   }
-
   .badge {
     font-size: 0.85rem;
     padding: 0.4em 0.6em;

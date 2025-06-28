@@ -38,4 +38,23 @@ class Reservation extends Model
         $table->save();
         }
     }
+    public function autoReserveAndConfirm($table_id, $customer_id)
+    {
+        $reservation = new Reservation();
+        $reservation->customer_id = $customer_id;
+        $reservation->table_id = $table_id;
+        $reservation->reservation_date = date('Y-m-d');
+        $reservation->reservation_time = date('H:i:s');
+        $reservation->status = 1; // Directly Confirmed
+        $reservation->save();
+
+        $table = Table::find($table_id);
+        if ($table) {
+            $table->status = 1; // Booked
+            $table->save();
+        }
+
+        return response()->json(['success' => true, 'message' => 'Auto Reserved & Confirmed']);
+    }
+
 }

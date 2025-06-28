@@ -221,10 +221,16 @@ document.getElementById('customer_id').addEventListener('change', async function
         let total=document.querySelector("#netTotal").innerHTML;
         let table_id=document.querySelector("#table").innerHTML;
         
-        
+        // ✅ STEP: Auto Reserve Table & Confirm
+        await fetch(`${base_url}/auto-reserve`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ table_id: table_id, customer_id: customer_id })
+        });
+
         let jsonData={
             customer_id:customer_id,
-            shipping_address:"Dhaka",
+            shipping_address:"N/A",
             order_total:total,
             paid_amount:total,
             remark:"Na",
