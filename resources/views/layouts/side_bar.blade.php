@@ -75,18 +75,6 @@
                 </ul>
             </li>
 
-            <!-- Customers -->
-            <li>
-                <a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
-                    <i class="fas fa-users"></i></i>
-                    <span class="nav-text">Customers</span>
-                </a>
-                <ul aria-expanded="false">
-                    <li><a href="{{ url('customers/create') }}">Create Customer</a></li>
-                    <li><a href="{{ url('customers') }}">Manage Customers</a></li>
-                </ul>
-            </li>
-
             <!-- ✅ Purchases -->
             <li>
                 <a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
@@ -115,7 +103,29 @@
                     <li><a href="{{ url('stocks') }}">All Stock Raw-Materials</a></li>
                 </ul>
             </li>
-
+            <!-- ✅ Kitchen / Production -->
+            <li>
+                <a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
+                    <i class="fas fa-concierge-bell"></i>
+                    <span class="nav-text">Kitchen</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('kitchen/preparation') }}">Food Preparation</a></li>
+                    <!-- <li><a href="{{ url('kitchen/ingredients') }}">Ingredients Usage</a></li> -->
+                    <li><a href="{{ url('kitchen/stock') }}">Kitchen Stock</a></li>
+                </ul>
+            </li>
+            <!-- Customers -->
+            <li>
+                <a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
+                    <i class="fas fa-users"></i></i>
+                    <span class="nav-text">Customers</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('customers/create') }}">Create Customer</a></li>
+                    <li><a href="{{ url('customers') }}">Manage Customers</a></li>
+                </ul>
+            </li>
             <!-- ✅ Suppliers -->
             <li>
                 <a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">

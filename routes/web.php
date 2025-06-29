@@ -1,90 +1,88 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Sales\SalesInvoiceController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\Sales\SalesInvoiceController;
 use App\Http\Controllers\MoneyReceiptController;
 use App\Http\Controllers\RawMaterialController;
 use App\Http\Controllers\StockController;
 
+// -------------------------
 // Default Home Route
+// -------------------------
 Route::get('/', function () {
     return view('pages.home');
-});
+})->name('home');
 
 // -------------------------
 // Product Routes
 // -------------------------
+Route::get('/products/{id}/confirm', [ProductController::class, 'confirm'])->name('products.confirm');
 Route::resource('products', ProductController::class);
-Route::get('/products/{id}/confirm', [ProductController::class, 'confirm']);
 
 // -------------------------
 // Table Routes
 // -------------------------
-Route::get('tables/manage', [TableController::class, 'manage']);
+Route::get('tables/manage', [TableController::class, 'manage'])->name('tables.manage');
 Route::get('tables/{id}/book', [TableController::class, 'book'])->name('tables.book');
-Route::get('/tables/{id}/confirm', [TableController::class, 'confirm']);
+Route::get('/tables/{id}/confirm', [TableController::class, 'confirm'])->name('tables.confirm');
 Route::resource('tables', TableController::class);
-
 
 // -------------------------
 // Customer Routes
 // -------------------------
+Route::get('/customers/{id}/delete', [CustomerController::class, 'delete'])->name('customers.delete');
 Route::resource('customers', CustomerController::class);
-Route::get('/customers/{id}/delete', [CustomerController::class, 'delete']);
 
 // -------------------------
 // Order Routes
 // -------------------------
+Route::get('/orders/{id}/delete', [OrderController::class, 'delete'])->name('orders.delete');
 Route::resource('orders', OrderController::class);
-Route::get('/orders/{id}/delete', [OrderController::class, 'delete']);
 
 // -------------------------
 // Reservation Routes
 // -------------------------
-Route::post('/auto-reserve', [ReservationController::class, 'autoReserveAndConfirm']);
-Route::resource('reservations', ReservationController::class);
-Route::get('/reservations/{id}/delete', [ReservationController::class, 'delete']);
-Route::get('/reservations/{id}/confirm', [ReservationController::class, 'confirm']);
+Route::post('/auto-reserve', [ReservationController::class, 'autoReserveAndConfirm'])->name('reservations.auto');
+Route::get('/reservations/{id}/delete', [ReservationController::class, 'delete'])->name('reservations.delete');
+Route::get('/reservations/{id}/confirm', [ReservationController::class, 'confirm'])->name('reservations.confirm');
 Route::post('/reservations/{id}/cancel', [ReservationController::class, 'cancel'])->name('reservations.cancel');
-Route::get('/reservations/{id}/checkout', [ReservationController::class, 'checkout']);
+Route::get('/reservations/{id}/checkout', [ReservationController::class, 'checkout'])->name('reservations.checkout');
+Route::resource('reservations', ReservationController::class);
 
 // -------------------------
 // Purchase Routes
 // -------------------------
+Route::get('/purchases/{id}/delete', [PurchaseController::class, 'delete'])->name('purchases.delete');
 Route::resource('purchases', PurchaseController::class);
-Route::get('/purchases/{id}/delete', [PurchaseController::class, 'delete']);
 
 // -------------------------
 // Supplier Routes
 // -------------------------
+Route::get('/suppliers/{id}/delete', [SupplierController::class, 'delete'])->name('suppliers.delete');
 Route::resource('suppliers', SupplierController::class);
-Route::get('/suppliers/{id}/delete', [SupplierController::class, 'delete']);
 
 // -------------------------
 // Sales Invoice Routes
 // -------------------------
-Route::get('/sales/invoices', [SalesInvoiceController::class, 'index']);
+Route::get('/sales/invoices', [SalesInvoiceController::class, 'index'])->name('sales.invoices');
 
 // -------------------------
-// MoneyReceipt Routes
+// Money Receipt Routes
 // -------------------------
 Route::resource('money_receipts', MoneyReceiptController::class);
-// Route::get('/moneyreceipts/{id}/delete', [MoneyReceiptController::class, 'delete']);
-
 
 // -------------------------
-// RawMaterial Routes
+// Raw Material Routes
 // -------------------------
 Route::resource('raw_materials', RawMaterialController::class);
-// Route::get('/raw_materials/{id}/confirm', [RawMaterialController::class, 'confirm']);
 
 // -------------------------
 // Stock Routes
@@ -92,12 +90,8 @@ Route::resource('raw_materials', RawMaterialController::class);
 Route::get('stocks/balance', [StockController::class, 'balance'])->name('stocks.balance');
 Route::resource('stocks', StockController::class);
 
-
-// Route::get('/raw_materials/{id}/confirm', [RawMaterialController::class, 'confirm']);
-
-
 // -------------------------
-// Database Connection Check (Optional)
+// Database Connection Check
 // -------------------------
 Route::get('/db-check', function () {
     try {
