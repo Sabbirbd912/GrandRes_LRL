@@ -141,7 +141,7 @@ $sub_total = 0;
 </div>
 
 <script>
-    let base_url = "http://localhost/intellect8/api";
+    let base_url = "http://localhost/Sabbir_Ahmed/Laravel/GrandRes_LRL/public/api";
     function CreatePayment() {
         alert('Payment module coming soon!');
     }

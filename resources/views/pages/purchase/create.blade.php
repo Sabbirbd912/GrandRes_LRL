@@ -141,7 +141,7 @@
 
 
 <script>
-   let base_url="http://127.0.0.1:8000/api";
+   let base_url="http://localhost/Sabbir_Ahmed/Laravel/GrandRes_LRL/public/api";
    let cart=[];
 
 

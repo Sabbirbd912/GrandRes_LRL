@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PurchaseController;
 use App\Http\Controllers\Api\MoneyReceiptController;
 use App\Http\Controllers\Api\AutoReservationController;
+use App\Http\Controllers\Api\ProductController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -20,6 +21,7 @@ Route::apiResources([
     'orders' => OrderController::class,
     'money_receipts' => MoneyReceiptController::class,
     'purchases' => PurchaseController::class,
+    'products' => ProductController::class,
 ]);
 
 Route::post('/auto-reserve', [AutoReservationController::class, 'reserve']);

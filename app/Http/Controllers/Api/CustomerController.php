@@ -3,95 +3,124 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Sales\Customer;
 use Illuminate\Http\Request;
-use App\Models\Customer;
+use Illuminate\Support\Facades\Storage;
 
 class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $customer = ["customers"=>Customer::all()];
-        return response()->json($customer);
-    }
-
-    public function find($id)
-    {
-        $customer=Customer::find($id);
-        return response()->json(["customer"=>$customer]);
+        return response()->json(["customers"=>Customer::All()]);
     }
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $customer=new Customer();
-        $customer->name=$request->name;
-        $customer->mobile=$request->mobile;
-        $customer->email=$request->email;
-        $customer->address=$request->address;
-        $customer->photo=$request->photo;
-        $customer->save();
-        
+        //Form Validation
 
-        if($request->hash_file('photo')) {
-            $imageName = $product->id. '.' . $request->photo->extension();
-            $request->photo->move(public_path('img'),$imageName);
+        //   $request->validate([
+        //     'name'  => 'required|string|max:255',
+        //     'email' => 'required',
+        //     'photo' => 'required|image|max:2048',
+        //   ]);
+              
+        $extension =$request->photo->extension();
+        $filename = $request->mobile . '.' . $extension;
 
-            $customer->photo = $imageName;
-            $customer->update();
-        }
-        return response()->json(['success'=>'Customer saved', 'data'=>$customer],201);
+     
+        // $customer = Customer::create([
+        //     'name'   => $request->name,
+        //     'email'  => $request->email,
+        //     'mobile' => $request->mobile,
+        //     'photo'  => $filename,
+        // ]);
+
+         $customer=Customer();         
+         $customer->name=$request->name;
+         $customer->email=$request->email;
+         $customer->mobile=$request->mobile;
+         $customer->photo=$filename;
+         $customer->save();
+
+        //upload file
+      if($request->hasFile('photo')){  
+						
+			$request->photo->move(public_path('img'),$filename);
+           
+		}
+           
+       //Response
+        return response()->json([
+            'message' => 'Customer saved successfully'           
+        ]);
     }
 
     /**
      * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function show(string $id)
+    public function show($id)
     {
-        $customer = Customer::find($id);
-        if (!$customer) {
-        return response()->json(['error' => 'Customer not found'], 404);
-        }
-        return response()->json($customer);
+       
+       return response()->json(Customer::find($id));
     }
-    
+
     /**
      * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        $customer = Customer::find($id);
-
-        if (!$customer) {
-            return response()->json(['error' => 'Customer not found'], 404);
+        $extension="";
+        $filename="";
+        if($request->hasFile('photo')){
+            $extension =$request->photo->extension();
+            $filename = $request->mobile . '.' . $extension;     
         }
-        $customer->name = $request->name;
-        $customer->mobile = $request->mobile;
-        $customer->email = $request->email;
-        $customer->address = $request->address;
+         $customer=Customer::find($id);         
+         $customer->name=$request->name;
+         $customer->email=$request->email;
+         $customer->mobile=$request->mobile;
+         $customer->photo=$filename;
+         $customer->update();
 
-        if ($request->hasFile('photo')) {
-            $imageName = $customer->id . '.' . $request->photo->extension();
-            $request->photo->move(public_path('img'), $imageName);
-            $customer->photo = $imageName;
-        }
-        $customer->save();
-        return response()->json(['success' => 'Customer Updated', 'data' => $customer], 200);
+        //upload file
+      if($request->hasFile('photo')){						
+			$request->photo->move(public_path('img'),$filename);           
+		}
+           
+           
+       return response()->json([
+            'message' => "Successfully updated"          
+        ]);
     }
 
-
+   
     /**
      * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        $customer = Customer::find($id);
-        $customer->delete();
-        return response()->json(['sucess' => 'Customer deleted']);
+        Customer::find($id)->delete();
+       return json_encode(["message"=>"Successfully Deleted"]);
     }
 }
