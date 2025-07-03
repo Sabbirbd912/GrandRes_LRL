@@ -28,10 +28,15 @@
         <div class="mb-3">
           <label for="photo" class="form-label">Photo</label>
           <input type="file" name="photo" id="photo" class="form-control input-light-green">
-          @if($product->photo)
-            <img src="{{ url('img/' . $product->photo) }}" width="120" class="mt-2 rounded shadow-sm" />
+
+          {{-- Show existing photo if available --}}
+          @if(!empty($product->photo))
+            <div class="mt-2">
+              <img src="{{ asset('img/' . $product->photo) }}" width="120" class="rounded shadow-sm border" alt="Product Photo">
+            </div>
           @endif
         </div>
+
 
         <div class="mb-3">
           <label for="product_section_id" class="form-label">Section</label>

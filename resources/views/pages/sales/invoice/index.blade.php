@@ -141,7 +141,7 @@
 
 
 <script>
-   let base_url="http://localhost/intellect8/api";
+   let base_url="http://localhost/Code_Resources/LARAVEL/GrandRes_LRL/public/api";
    let cart=[];
 
 

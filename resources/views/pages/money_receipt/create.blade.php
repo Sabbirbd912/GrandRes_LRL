@@ -139,7 +139,7 @@
 
 
 <script>
-   let base_url="http://localhost/Sabbir_Ahmed/Laravel/GrandRes_LRL/public/api";
+   let base_url="http://localhost/Code_Resources/LARAVEL/GrandRes_LRL/public/api";
    let cart=[];
 
     document.getElementById('customer_id').addEventListener('change', async function(){
@@ -243,7 +243,10 @@
 
         let response=await fetch(`${base_url}/money_receipts`,{
         method:"POST",
-        headers:{"Content-Type":"application/json"},
+        headers:{
+            "Content-Type":"application/json",
+            'Accept': 'application/json' 
+        },
         body:JSON.stringify(jsonData)
       });
 

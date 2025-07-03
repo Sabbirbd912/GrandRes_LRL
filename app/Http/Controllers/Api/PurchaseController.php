@@ -24,46 +24,45 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-        $purchase=new Purchase();
-        $purchase->supplier_id=$request->supplier_id;
-        $purchase->purchase_date=date("Y-m-d");
-        $purchase->delivery_date=date("Y-m-d");
-        $purchase->shipping_address="N/A";
-        $purchase->purchase_total=$request->purchase_total;
-        $purchase->paid_amount=$request->paid_amount;
-        $purchase->remark="N/A";
-        $purchase->status_id=1;
-        $purchase->discount=0;
-        $purchase->vat=0;
-        $purchase->save();
+        try {
+            $purchase = new Purchase();
+            $purchase->supplier_id = $request->supplier_id ?? null;
+            $purchase->payment_term = $request->payment_term ?? 'CASH';
+            $purchase->purchase_total = $request->purchase_total ?? 0;
+            $purchase->paid_amount = $request->paid_amount ?? 0;
+            $purchase->remark = $request->remark ?? '';
+            $purchase->save();
 
-        $items=$request->items;
+            // Optional: save purchase details
+            if (is_array($request->items ?? null)) {
+                foreach ($request->items as $item) {
+                    if (!isset($item['product_id'])) continue;
 
-        foreach($items as $item){
-            $details=new PurchaseDetail();
-            $details->purchase_id=$purchase->id;
-            $details->raw_material_id=$item["raw_material_id"];
-            $details->qty=$item["qty"];
-            $details->price=$item["price"];
-            $details->vat=$item["vat"];
-            $details->discount=$item["discount"];
-            $details->save();
+                    $detail = new PurchaseDetail();
+                    $detail->purchase_id = $purchase->id;
+                    $detail->product_id = $item['product_id'];
+                    $detail->qty = $item['qty'] ?? 1;
+                    $detail->price = $item['price'] ?? 0;
+                    $detail->save();
+                }
+            }
 
-            $stock=new Stock();
-            $stock->raw_material_id=$item["raw_material_id"];
-            $stock->transaction_type_id=1;
-            $stock->qty=$item["qty"];       
-            $stock->remark="Purchase";  
-            //$stock->timestamps = false;
-            $stock->save();
+            return response()->json([
+                'success' => true,
+                'message' => 'Purchase saved successfully.'
+            ]);
+
+        } catch (\Exception $e) {
+            \Log::error('Purchase error: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Server error occurred.',
+                'error' => $e->getMessage()
+            ], 500);
         }
-        $data=[   
-            "id"=>$purchase->id,          
-            "msg"=>"Success"
-        ];
-
-         return response()->json($data);
     }
+
 
     /**
      * Display the specified resource.

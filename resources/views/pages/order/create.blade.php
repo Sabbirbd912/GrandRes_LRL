@@ -145,7 +145,7 @@
 
 
 <script>
-   let base_url="http://localhost/Sabbir_Ahmed/Laravel/GrandRes_LRL/public/api";
+   let base_url="http://localhost/Code_Resources/LARAVEL/GrandRes_LRL/public/api";
    let cart=[];
 
 document.getElementById('customer_id').addEventListener('change', async function(){

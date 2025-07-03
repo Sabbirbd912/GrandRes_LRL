@@ -141,7 +141,7 @@
 
 
 <script>
-   let base_url="http://localhost/Sabbir_Ahmed/Laravel/GrandRes_LRL/public/api";
+   let base_url="http://localhost/Code_Resources/LARAVEL/GrandRes_LRL/public/api";
    let cart=[];
 
 
@@ -192,43 +192,52 @@
        printCart();
     }
 
-    async function CreatePurchase(){        
+    async function CreatePurchase() {
+        if (confirm("Are you sure?")) {
+            let supplier_id = parseInt(document.querySelector("#supplier_id").value);
+            let total = parseFloat(document.querySelector("#netTotal").innerHTML.replace("$", "")) || 0;
 
-      if(confirm("Are you sure?")){
-        // let date=document.querySelector("#date").innerHTML;
-        let supplier_id=document.querySelector("#supplier_id").value;
-        let total=document.querySelector("#netTotal").innerHTML;
-        
-        
-        let jsonData={
-            // created_at:date,
-            // updated_at:date,
-            supplier_id:supplier_id,
-            remark:"Na",
-            payment_term:"CASH",
-            purchase_total:total,
-            paid_amount:total,
-            previous_due:0,
-            items:cart
+            let items = cart.map(item => ({
+                product_id: parseInt(item.raw_material_id),
+                qty: parseFloat(item.qty),
+                price: parseFloat(item.price)
+            }));
+
+            let jsonData = {
+                supplier_id: supplier_id,
+                remark: "Na",
+                payment_term: "CASH",
+                purchase_total: total,
+                paid_amount: total,
+                previous_due: 0,
+                items: items
+            };
+
+            console.log("Sending:", jsonData);
+
+            let response = await fetch(`${base_url}/purchases`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(jsonData)
+            });
+
+            let result = await response.json();
+            console.log(result);
+
+            if (response.ok) {
+                alert("✅ Purchase created successfully!");
+                cart = [];
+                printCart();
+            } else {
+                alert("❌ Failed to create purchase. See console for error.");
+                console.error("Server error:", result);
+            }
         }
+    }
 
-        console.log(jsonData);
-
-        let response=await fetch(`${base_url}/purchases`,{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify(jsonData)
-      });
-
-      let json=response.json();
-      console.log(json);
-
-      cart=[];
-      printCart();
-
-      }
-
-}
 
 </script>
 
