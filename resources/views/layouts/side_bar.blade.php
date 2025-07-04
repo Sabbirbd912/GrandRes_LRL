@@ -99,7 +99,7 @@
                     <li><a href="{{ url('raw_materials') }}">Manage Raw-Material</a></li>
                     <!-- <li><a href="{{ url('inventory/in') }}">Stock In</a></li>
                     <li><a href="{{ url('inventory/adjustment') }}">Stock Adjustment</a></li> -->
-                    <li><a href="{{ url('stocks/balance') }}">Stock Balance</a></li>
+                    <li><a href="{{ url('/stocks/balance') }}">Stock Balance</a></li>
                     <li><a href="{{ url('stocks') }}">All Stock Raw-Materials</a></li>
                 </ul>
             </li>

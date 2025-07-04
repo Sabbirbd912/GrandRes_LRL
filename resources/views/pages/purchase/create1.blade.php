@@ -2,13 +2,17 @@
    use App\Models\Supplier;
    use App\Models\RawMaterial;
    use App\Models\Company;
+   use App\Models\PurchaseDetail;
 
-   $Suppliers = Supplier::all();
-   $raw_materials = RawMaterial::all();
-   $company = Company::find(1);
+   $Suppliers=Supplier::all();
+   $raw_materials=RawMaterial::all();
+   $company=Company::find(1);
 ?>
 @extends("layouts.master")
 @section("page")
+
+ 
+
 
 <div class="card mb-3 shadow-sm">
     <div class="card-body">
@@ -131,57 +135,61 @@
     </div>
 </div>
 
+
+
+
+
+
 <script>
-    let base_url = "http://localhost/Code_Resources/LARAVEL/GrandRes_LRL/public/api";
-    let cart = [];
+   let base_url="http://localhost/Code_Resources/LARAVEL/GrandRes_LRL/public/api";
+   let cart=[];
 
-    document.querySelector("#btnAdd").addEventListener("click", () => {
-        let unit = document.querySelector("#unit").value;
-        let price = document.querySelector("#price").value;
-        let raw_material_id = document.querySelector("#raw_material_id").value;
-        let product_name = document.querySelector("#raw_material_id").options[document.querySelector("#raw_material_id").selectedIndex].text;
-        let vat = 0;
-        let discount = 0;
-        let lineTotal = (unit * price - discount + vat);
-        let json = {
-            id: cart.length + 1,
-            desc: product_name,
-            raw_material_id: raw_material_id,
-            qty: unit,
-            price: price,
-            discount: discount,
-            vat: vat,
-            lineTotal: lineTotal
-        };
 
-        cart.push(json);
+   document.querySelector("#btnAdd").addEventListener("click",(e)=>{
+       
+       // let desc=document.querySelector("#description").value;
+        let unit=document.querySelector("#unit").value;
+        let price=document.querySelector("#price").value;
+        let raw_material_id=document.querySelector("#raw_material_id").value;
+        let product_name= document.querySelector("#raw_material_id").options[document.querySelector("#raw_material_id").selectedIndex].text;
+        let vat=0;
+        let discount=0;
+        let lineTotal=unit*price-discount+vat;
+        let json={id:cart.length+1,desc:product_name,raw_material_id:raw_material_id,qty:unit,price:price,discount:discount,vat:vat,lineTotal:lineTotal};
+
+        cart.push(json);        
+        console.log(cart);
         printCart();
     });
 
-    function printCart() {
-        let html = "";
-        let total = 0;
-        cart.forEach((item) => {
-            html += "<tr>";
-            html += `<td class="align-middle"><h6 class="mb-0 text-nowrap">${item.desc}</h6><p class="mb-0">${item.id}</p></td>`;
-            html += `<td class="align-middle text-center">${item.qty}</td>`;
-            html += `<td class="align-middle text-end">${item.price}</td>`;
-            html += `<td class="align-middle text-end">${item.lineTotal.toFixed(2)}</td>`;
-            html += `<td><input type="button" onclick="del(${item.id})" value="del" class="btn btn-sm btn-danger" /></td>`;
-            html += "</tr>";
-            total += parseFloat(item.lineTotal);
+
+    function printCart(){
+        let html="";
+        let total=0;
+        cart.forEach((item)=>{
+            html+="<tr>";
+            html+=`<td class="align-middle"><h6 class="mb-0 text-nowrap">${item.desc}</h6><p class="mb-0">${item.id}</p></td>`;
+            html+=`<td class="align-middle text-center">${item.qty}</td>`;
+            html+=`<td class="align-middle text-end">${item.price}</td>`;
+            html+=`<td class="align-middle text-end">${item.lineTotal}</td>`;
+            html+=`<td><input type="button" onclick="del(${item.id})" value="del" /></td>`;
+            html+="</tr>";
+            total+=item.lineTotal;
         });
 
-        document.querySelector("#tbody").innerHTML = html;
-        document.querySelector("#subTotal").innerHTML = "$" + total.toFixed(2);
-        document.querySelector("#netTotal").innerHTML = "$" + total.toFixed(2);
-        document.querySelector("#due").innerHTML = "$" + total.toFixed(2);
+      document.querySelector("#tbody").innerHTML=html;
+      document.querySelector("#subTotal").innerHTML=total;
+      document.querySelector("#netTotal").innerHTML=total;
+
     }
 
-    function del(id) {
-        let index = cart.findIndex((item) => item.id == id);
-        cart.splice(index, 1);
-        printCart();
+
+    function del(id){
+      let index=cart.findIndex((item)=>{
+        return item.id==id;
+      });
+       cart.splice(index,1);
+       printCart();
     }
 
     async function CreatePurchase() {
@@ -190,20 +198,22 @@
             let total = parseFloat(document.querySelector("#netTotal").innerHTML.replace("$", "")) || 0;
 
             let items = cart.map(item => ({
-                raw_material_id: parseInt(item.raw_material_id),
+                product_id: parseInt(item.raw_material_id),
                 qty: parseFloat(item.qty),
-                price: parseFloat(item.price),
-                vat: parseFloat(item.vat) || 0,
-                discount: parseFloat(item.discount) || 0
+                price: parseFloat(item.price)
             }));
 
             let jsonData = {
                 supplier_id: supplier_id,
                 remark: "Na",
+                payment_term: "CASH",
                 purchase_total: total,
                 paid_amount: total,
+                previous_due: 0,
                 items: items
             };
+
+            console.log("Sending:", jsonData);
 
             let response = await fetch(`${base_url}/purchases`, {
                 method: "POST",
@@ -215,6 +225,8 @@
             });
 
             let result = await response.json();
+            console.log(result);
+
             if (response.ok) {
                 alert("✅ Purchase created successfully!");
                 cart = [];
@@ -225,6 +237,8 @@
             }
         }
     }
+
+
 </script>
 
 @endsection

@@ -7,7 +7,7 @@
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h3 class="text-uppercase text-primary">📦 Stock Balance</h3>
     <div>
-      <!-- <a href="{{ route('stocks.create') }}" class="btn btn-success me-2">➕ Create Stock</a> -->
+     
       <a href="{{ route('stocks.index') }}" class="btn btn-info">📋 Manage Stocks</a>
     </div>
   </div>

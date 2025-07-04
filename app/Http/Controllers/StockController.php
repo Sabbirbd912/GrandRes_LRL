@@ -67,6 +67,23 @@ class StockController extends Controller
         //
     }
 
+// public function balance()
+// {
+//     $result = DB::table('stocks')
+//         ->join('transaction_types', 'transaction_types.id', '=', 'stocks.transaction_type_id')
+//         ->join('raw_materials', 'raw_materials.id', '=', 'stocks.raw_material_id')
+//         ->select(
+//             'raw_materials.id',
+//             'raw_materials.name as raw_material',
+//             DB::raw('SUM(stocks.qty) as total')
+//         )
+//         ->groupBy('stocks.raw_material_id', 'raw_materials.id', 'raw_materials.name')
+//         ->get();
+
+//     return view("pages.stock.balance", ["balances" => $result]);
+// }
+
+
     public function balance()
 	{
 		$result = DB::table('stocks') // Laravel adds 'core_' prefix
@@ -79,4 +96,9 @@ class StockController extends Controller
 
 		return view("pages.stock.balance",["balances"=>$result]);
 	}
+
+
+
+
+
 }
